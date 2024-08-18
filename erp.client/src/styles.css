@@ -1,0 +1,18 @@
+
+body {
+  margin: 0px !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.select2-container {
+  width: 100% !important;
+  padding: 0;
+}
+
+table.jambo_table thead {
+  background: #1ABB9C !important;
+  color: #ECF0F1;
+}
+

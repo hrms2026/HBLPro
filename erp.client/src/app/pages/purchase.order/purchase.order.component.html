@@ -1,0 +1,96 @@
+<div class="right_col"  role="main" style="min-height: 99vh;">
+    <div class="x_panel">
+      <div class="x_title">
+        <button class="btn btn-warning" (click)="openCreateFormModal()"><i class="fa fa-plus"></i> Create</button>
+        <div class="clearfix"></div>
+      </div>
+      <table  datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="table table-striped jambo_table bulk_action"  >
+        <thead>
+          <tr class="headings">
+            <th class="column-title">Id</th>
+            <th class="column-title">Make</th>
+            <th class="column-title">Model</th>
+            <th class="column-title">Processor</th>
+            <th class="column-title">Hard Disk</th>
+            <th class="column-title">Ram</th>
+            <th class="column-title">Created By</th>
+            <th class="column-title">Created On</th>
+            <th class="column-title no-link last">Action</th>
+            <th class="column-title no-link last">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="purchaseOrders.length > 0">
+          <tr *ngFor="let po of purchaseOrders" id="row_{{ po.po_id }}">
+            <td>{{ po.po_id }}</td>
+            <td>{{ po.po_make }}</td>
+            <td>{{ po.po_model }}</td>
+            <td>{{ po.po_processor }}</td>
+            <td>{{ po.po_harddisk }}</td>
+            <td>{{ po.po_ram }}</td>
+            <td>{{ po.po_cre_by_name }}</td>
+            <td>{{ po.po_cre_date }}</td>
+            <td>
+              <button class="btn btn-info" (click)="editPurchaseOrder(po.po_id)"><i class="fa fa-edit"></i> edit</button>
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="deletePurchaseOrder(po.po_id)"><i class="fa fa-trash"></i> delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- modal.component.html -->
+  <div class="modal fade" id="purchaseOrderFormModal"  role="dialog" aria-labelledby="purchaseOrderFormModalLabel" aria-hidden="true" #userFormModal>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="userFormModalLabel">{{ purchaseOrder.po_id ? 'Update Purchase Order' : 'Create Purchase Order' }}</h5>
+        </div>
+        <div class="modal-body">
+          <form  #form="ngForm">
+            <div class="form-group">
+              <label for="po_make">Make</label>
+              <input type="text" id="po_make" class="form-control" [(ngModel)]="purchaseOrder.po_make" name="po_make" required>
+              <div class="invalid-feedback" *ngIf="form.submitted && !purchaseOrder.po_make">
+                Make is required
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="po_model">Modal</label>
+              <input type="text" id="po_model" class="form-control" [(ngModel)]="purchaseOrder.po_model" name="po_model" required>
+              <div class="invalid-feedback" *ngIf="form.submitted && !purchaseOrder.po_model">
+                Model is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="po_processor">Processor</label>
+              <input type="text" id="po_processor" class="form-control" [(ngModel)]="purchaseOrder.po_processor" name="po_processor" required >
+              <div class="invalid-feedback" *ngIf="form.submitted && !purchaseOrder.po_processor">
+                Processor is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="po_harddisk">Hard Disk</label>
+              <input type="text" id="po_harddisk" class="form-control" [(ngModel)]="purchaseOrder.po_harddisk" name="po_harddisk" required >
+              <div class="invalid-feedback" *ngIf="form.submitted && !purchaseOrder.po_harddisk">
+                Hard Disk is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="po_ram">Ram</label>
+              <input type="text" id="po_ram" class="form-control" [(ngModel)]="purchaseOrder.po_ram" name="po_ram" required >
+              <div class="invalid-feedback" *ngIf="form.submitted && !purchaseOrder.po_ram">
+                Ram is required
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" (click)="createOrUpdatePurchaseOrder()">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

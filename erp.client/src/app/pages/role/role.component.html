@@ -1,0 +1,75 @@
+<div class="right_col"  role="main" style="min-height: 99vh;">
+    <div class="x_panel">
+      <div class="x_title">
+        <button class="btn btn-warning" (click)="createRole()"><i class="fa fa-plus"></i> Create</button>
+        <div class="clearfix"></div>
+      </div>
+     <div class="x_content" style="display: block;">
+        <div *ngIf="roles.length === 0">
+          &nbsp;No Roles found.
+          <br/>
+        </div>
+      
+
+          <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="table table-striped jambo_table bulk_action">
+            <thead>
+              <tr class="headings">
+                <th class="column-title">Id </th>
+                <th class="column-title">Name </th>
+                <th class="column-title">Is Active</th>
+                <th class="column-title">Created By </th>
+                <th class="column-title">Created On </th>
+                <th class="column-title no-link last"><span class="nobr">Action</span></th>
+                <th class="column-title no-link last"><span class="nobr">Action</span></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="roles.length > 0">
+              <tr *ngFor="let role of roles" id="row_{{ role.r_id }}">
+                <td>{{ role.r_id }}</td>
+                <td>{{ role.r_name }}</td>
+                <td>{{ role.r_active_yn }}</td>
+                <td>{{ role.r_cre_by_name }}</td>
+                <td>{{ role.r_cre_date }}</td>
+                <td>
+                  <button class="btn btn-info" (click)="editRole(role.r_id)">
+                    <i class="fa fa-edit"></i> edit
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteRole(role.r_id)">
+                    <i class="fa fa-trash"></i> delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  <!-- modal.component.html -->
+ 
+  <div class="modal fade" id="roleFormModal" tabindex="-1" role="dialog" aria-labelledby="roleFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="roleFormModalLabel">{{ role.r_id ? 'Update Role' : 'Create Role' }}</h5>
+        </div>
+        <div class="modal-body">
+          <form  #userForm="ngForm">
+            <div class="form-group">
+              <label for="r_name">Name</label>
+              <input type="text" id="r_name" class="form-control" [(ngModel)]="role.r_name" name="r_name" required>
+              <div class="invalid-feedback" *ngIf="userForm.submitted && !role.r_name">
+                Name is required
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" (click)="createOrUpdateRole()">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+
