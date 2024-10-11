@@ -10,6 +10,13 @@ import { RoleComponent } from './pages/role/role.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { PurchaseOrderComponent } from './pages/purchase.order/purchase.order.component';
 import { MenuAllocationComponent } from './pages/menu.allocation/menu.allocation.component';
+import { SupplierComponent } from './pages/supplier/supplier.component';
+import { CustomerComponent } from './pages/customer/customer.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { IncomeComponent } from './pages/income/income.component';
+import { ExpenseComponent } from './pages/expense/expense.component';
+import { MasterDataComponent } from './pages/master-data/master-data.component';
+import { ExpenseReportComponent } from './pages/expense-report/expense-report.component';
 
 
 const routes: Routes = [
@@ -52,6 +59,35 @@ const routes: Routes = [
       {
         path: 'menuallocation',
         component : MenuAllocationComponent
+      },
+      {
+        path: 'customers',
+        component : CustomerComponent
+      },
+      {
+        path : 'suppliers',
+        component : SupplierComponent
+      },
+      {
+        path : 'categories',
+        component : CategoryComponent
+      },
+      {
+        path : 'incomes',
+        component : IncomeComponent
+      },
+      {
+        path : 'expenses',
+        component : ExpenseComponent
+      },
+      {
+        path :'master-data',
+        component :MasterDataComponent
+      }
+      ,
+      {
+        path :'expense-report',
+        component :ExpenseReportComponent
       }
     ]
   }

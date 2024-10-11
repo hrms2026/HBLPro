@@ -1,0 +1,102 @@
+<div class="right_col" masterData="main" style="min-height: 99vh;">
+  <div class="x_panel">
+    <div class="x_title">
+      <button class="btn btn-warning" (click)="createMasterData()"><i class="fa fa-plus"></i> Create</button>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content" style="display: block;">
+      <div class="row">
+        <div class="col-2 d-flex flex-column justify-content-start">
+          <label>Select Type</label>
+          <div *ngFor="let mt of masterTypes">
+            <label class="btn mb-2 form-control d-flex align-items-center" style="background-color: #1ABB9C;"> 
+              <input type="radio" [id]="mt.type" [value]="mt.type" name="options" [(ngModel)]="this.masterType" (change)="onOptionChange(mt.type)" class="me-2" />
+               &nbsp; {{ mt.type }}
+            </label>
+          </div>
+        </div>
+        <div class="col-10">
+          <div *ngIf="masterDatas.length === 0" class="text-danger">
+            No MasterDatas found.
+            <br />
+            <br />
+          </div>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+            class="table table-striped jambo_table bulk_action">
+            <thead>
+              <tr class="headings">
+                <th class="column-title">Id</th>
+                <th class="column-title">Name</th>
+                <th class="column-title">Type</th>
+                <th class="column-title">Created By </th>
+                <th class="column-title">Created On </th>
+                <th class="column-title no-link last"><span class="nobr">Action</span></th>
+                <th class="column-title no-link last"><span class="nobr">Action</span></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="masterDatas.length > 0">
+              <tr *ngFor="let masterData of masterDatas" id="row_{{ masterData.md_id }}">
+                <td>{{ masterData.md_id }}</td>
+                <td>{{ masterData.md_name }}</td>
+                <td>{{ masterData.md_type }}</td>
+                <td>{{ masterData.md_cre_by_name }}</td>
+                <td>{{ masterData.md_cre_date }}</td>
+                <td>
+                  <button class="btn btn-info" (click)="editMasterData(masterData.md_id)">
+                    <i class="fa fa-edit"></i> edit
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteMasterData(masterData.md_id)">
+                    <i class="fa fa-trash"></i> delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+</div>
+
+<!-- modal.component.html -->
+
+<div class="modal fade" id="masterDataFormModal" tabindex="-1" masterData="dialog"
+  aria-labelledby="masterDataFormModalLabel" aria-hidden="true">
+  <div class="modal-dialog" masterData="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="masterDataFormModalLabel">{{ masterData.md_id ? 'Update Master Data' : 'Create
+          Master Data' }}</h5>
+      </div>
+      <div class="modal-body">
+        <form #userForm="ngForm">
+          <div class="form-group">
+            <label for="md_name">Name</label>
+            <input type="text" id="md_name" class="form-control" [(ngModel)]="masterData.md_name" name="md_name"
+              required>
+            <div class="invalid-feedback" *ngIf="userForm.submitted && !masterData.md_name">
+              Name is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="md_type">Type</label>
+            <input type="text" id="md_type" class="form-control" [(ngModel)]="masterData.md_type" name="md_type"
+              required>
+            <div class="invalid-feedback" *ngIf="userForm.submitted && !masterData.md_type">
+              Type is required
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" (click)="createOrUpdateMasterData()">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>

@@ -1,0 +1,74 @@
+<div class="right_col" role="main" style="min-height: 100vh;">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="srp_order_no">PO Number</label>
+                <input type="number" class="form-control" [(ngModel)]="salesReportParms.srp_order_no"
+                    name="srp_order_no" id="srp_order_no">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="srp_make">Make</label>
+                <select appSelect2 #srp_make id="srp_make" class="form-control" [(ngModel)]="salesReportParms.srp_make"
+                    name="srp_make" required (selectionChanged)="OnMakeChange($event);">
+                    <option *ngFor="let make of makes" [value]="make.ma_id">{{ make.ma_name }}</option>
+                </select>
+            </div>
+        </div>
+       
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="srp_report_type">Report Type</label>
+                <select appSelect2 #srp_report_type id="srp_report_type" class="form-control"
+                    [(ngModel)]="salesReportParms.srp_report_type" name="srp_report_type" required
+                    (selectionChanged)="OnReportTypeChange($event);"
+                    >
+                    <option value="model">Model Wise</option>
+                    <option value="order">Order Number Wise</option>
+                    <option value="user">User Wise</option>
+                    <option value="serialNo">Serial No Wise</option>
+                    <option value="date">Date Wise</option>
+                </select>
+            </div>
+        </div> 
+        <div class="col-md-3">
+            <form [formGroup]="dateRangeForm">
+              <mat-form-field class="example-form-field">
+                <mat-label for="srp_date_range">Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="rangePicker">
+                  <input matStartDate placeholder="Start date" formControlName="start" />
+                  <input matEndDate placeholder="End date" formControlName="end" />
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                <mat-date-range-picker #rangePicker>
+                  <mat-date-range-picker-actions>
+                    <button mat-button matDateRangePickerCancel>Cancel</button>
+                    <button mat-raised-button matDateRangePickerApply>Apply</button>
+                  </mat-date-range-picker-actions>
+                </mat-date-range-picker>
+              </mat-form-field>
+            </form>
+          </div>
+          
+        <div class="col-md-3">
+            <div class="form-group mt-4">
+                <button class="btn btn-primary" (click)="getExpenseReport()"> <i class="fa fa-search"></i> Search</button>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="x_panel">
+        <div class="x_content" style="display: block;">
+            <ag-grid-angular #salesReportGrid 
+                class="ag-theme-quartz ag-theme-acmecorp"
+                style="height: 70vh; width: 100%;" [rowData]="reportdata" [columnDefs]="colDefs"
+                [defaultColDef]="defaultColDef" 
+                [components]="frameworkComponents" [pagination]="true"
+                [paginationPageSize]="15" [paginationPageSizeSelector]="paginationPageSizeSelector"
+                (gridReady)="onGridReady($event)">
+            </ag-grid-angular>
+        </div>
+    </div>
+</div>

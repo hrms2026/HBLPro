@@ -1,0 +1,71 @@
+<div class="right_col" style="min-height: 99vh;">
+    <div class="x_panel">
+        <div class="x_title">
+            <button class="btn btn-warning" (click)="createExpense()"><i class="fa fa-plus"></i> Create</button>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content" style="display: block;">
+            <div class="row">
+                <div class="col-md-12">
+                    <ag-grid-angular #expenseGrid class="ag-theme-quartz ag-theme-acmecorp"
+                        style="height: 80vh; width: 100%;" [rowData]="expenses" [columnDefs]="colDefs"
+                        [pagination]="pagination" [defaultColDef]="defaultColDef" [components]="frameworkComponents"
+                        [paginationPageSize]="10" [paginationPageSizeSelector]="paginationPageSizeSelector"
+                        (gridReady)="onGridReady($event)"></ag-grid-angular>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal.component.html -->
+<div class="modal fade" id="expenseFormModal" tabindex="-1" role="dialog" aria-labelledby="expenseFormModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="expenseFormModalLabel">{{ expense.e_id ? 'Update Expense' : 'Create Expense'
+                    }}</h5>
+            </div>
+            <div class="modal-body">
+                <form #expenseForm="ngForm">
+                    <div class="form-group">
+                        <label for="e_category">Category</label>
+                        <select appSelect2 #e_category id="e_category" class="form-control"
+                            [(ngModel)]="expense.e_category" name="e_category" required
+                            (selectionChanged)="onCategoryChange($event);">
+                            <option *ngFor="let c of categories" [value]="c.ct_id">{{ c.ct_name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="e_expense_date">Date</label>
+                        <input type="date" id="e_expense_date" class="form-control" [(ngModel)]="expense.e_expense_date"
+                            name="e_expense_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="e_amount">Amount</label>
+                        <input type="number" id="e_amount" class="form-control" [(ngModel)]="expense.e_amount"
+                            name="e_amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="e_payment_method">Payment Method</label>
+                        <select appSelect2 #e_payment_method id="e_payment_method" class="form-control"
+                            [(ngModel)]="expense.e_payment_method" name="e_payment_method" required
+                            (selectionChanged)="onPaymentTypeChange($event);">
+                            <option *ngFor="let pt of paymentTypes" [value]="pt.md_id">{{ pt.md_name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="e_remarks">Remarks</label>
+                        <textarea id="e_remarks" class="form-control" [(ngModel)]="expense.e_remarks" name="e_remarks" rows="7"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" (click)="createOrUpdateExpense()">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

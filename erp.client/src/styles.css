@@ -1,4 +1,7 @@
-
+/* Core Data Grid CSS */
+@import 'ag-grid-community/styles/ag-grid.css';
+/* Quartz Theme Specific CSS */
+@import 'ag-grid-community/styles/ag-theme-quartz.css';
 body {
   margin: 0px !important;
 }
@@ -16,3 +19,37 @@ table.jambo_table thead {
   color: #ECF0F1;
 }
 
+
+
+.ag-theme-acmecorp {
+  --ag-borders: none;
+   --ag-header-foreground-color: white;
+   --ag-header-background-color: #3bb89f; 
+  --ag-grid-size: 10px;
+  --ag-font-size: 12px;
+  --ag-font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+  --ag-range-selection-border-color: #fff;
+  --ag-border-radius: 0px;
+  --ag-wrapper-border-radius: 0px;
+}
+
+.select2-container--default .select2-results__options {
+  overflow-y: auto !important; /* Ensures the dropdown itself scrolls if needed */
+}
+
+.cdk-overlay-container {
+  z-index: 100000 !important;
+}
+
+.mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    --mdc-snackbar-container-color: #3bb89f;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+  &.danger-snackbar {
+    --mdc-snackbar-container-color: #dc3545;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}

@@ -92,6 +92,12 @@ builder.Services.AddTransient<ILogin, LoginRepository>();
 builder.Services.AddTransient<IPurchaseOrder, PurchaseOrderRepository>();
 builder.Services.AddTransient<IMenu, MenuRepository>();
 builder.Services.AddTransient<IRoleMenu, RoleMenuRepository>();
+builder.Services.AddTransient<ISupplier, SupplierRepository>();
+builder.Services.AddTransient<ICustomer, CustomerRepository>();
+builder.Services.AddTransient<IExpense, ExpenseRepository>();
+builder.Services.AddTransient<IIncome, IncomeRepository>();
+builder.Services.AddTransient<ICategory, CategoryRepository>();
+builder.Services.AddTransient<IMasterData, MasterDataRepository>();
 
 var app = builder.Build();
 

@@ -1,0 +1,83 @@
+<div class="right_col" style="min-height: 99vh;">
+    <div class="x_panel">
+        <div class="x_title">
+            <button class="btn btn-warning" (click)="createCategory()"><i class="fa fa-plus"></i> Create</button>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content" style="display: block;">
+            <div *ngIf="categories.length === 0">
+                &nbsp;No Categories found.
+                <br/>
+            </div>
+
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped jambo_table bulk_action">
+                <thead>
+                    <tr class="headings">
+                        <th class="column-title">Id</th>
+                        <th class="column-title">Name</th>
+                        <th class="column-title">Type</th>
+                        <th class="column-title">Created By</th>
+                        <th class="column-title">Created On</th>
+                        <th class="column-title no-link last"><span class="nobr">Action</span></th>
+                        <th class="column-title no-link last"><span class="nobr">Action</span></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="categories.length > 0">
+                    <tr *ngFor="let category of categories" id="row_{{ category.ct_id }}">
+                        <td>{{ category.ct_id }}</td>
+                        <td>{{ category.ct_name }}</td>
+                        <td>{{ category.ct_type }}</td>
+                        <td>{{ category.ct_cre_by_name }}</td>
+                        <td>{{ category.ct_cre_date }}</td>
+                        <td>
+                            <button class="btn btn-info" (click)="editCategory(category.ct_id)">
+                                <i class="fa fa-edit"></i> edit
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" (click)="deleteCategory(category.ct_id)">
+                                <i class="fa fa-trash"></i> delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="categoryFormModal" tabindex="-1" role="dialog" aria-labelledby="categoryFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoryFormModalLabel">{{ category.ct_id ? 'Update Category' : 'Create Category' }}</h5>
+            </div>
+            <div class="modal-body">
+                <form #categoryForm="ngForm">
+                    <div class="form-group">
+                        <label for="ct_name">Name</label>
+                        <input type="text" id="ct_name" class="form-control" [(ngModel)]="category.ct_name" name="ct_name" required>
+                        <div class="invalid-feedback" *ngIf="categoryForm.submitted && !category.ct_name">
+                            Full Name is required
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <input type="text" id="type" class="form-control" [(ngModel)]="category.ct_type" name="ct_type" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="active">Active</label>
+                        <select id="active" class="form-control" [(ngModel)]="category.ct_active_yn" name="ct_active_yn">
+                            <option value='Y'>Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" (click)="createOrUpdateCategory()">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -21,7 +21,16 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { MenuAllocationComponent } from './pages/menu.allocation/menu.allocation.component';
 import { PurchaseOrderComponent } from './pages/purchase.order/purchase.order.component';
 import { Select2Directive } from './directives/select2.directive';
-import {DataTablesModule} from 'angular-datatables'
+import { DataTablesModule} from 'angular-datatables';
+import { CustomerComponent } from './pages/customer/customer.component';
+import { SupplierComponent } from './pages/supplier/supplier.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { ExpenseComponent } from './pages/expense/expense.component';
+import { IncomeComponent } from './pages/income/income.component'
+import { MasterDataComponent } from './pages/master-data/master-data.component';
+import { AgGridModule } from 'ag-grid-angular'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ExpenseReportComponent } from './pages/expense-report/expense-report.component';
 
 // Define a function to get the token
 export function tokenGetter() {
@@ -53,7 +62,14 @@ const jwtConfig: JwtModuleOptions = {
     MenuComponent,
     PurchaseOrderComponent,
     MenuAllocationComponent,
-    Select2Directive
+    Select2Directive,
+    CustomerComponent,
+    SupplierComponent,
+    CategoryComponent,
+    ExpenseComponent,
+    IncomeComponent,
+    MasterDataComponent,
+    ExpenseReportComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +77,9 @@ const jwtConfig: JwtModuleOptions = {
     FormsModule,
     AppRoutingModule,
     JwtModule.forRoot(jwtConfig), 
-    DataTablesModule
+    DataTablesModule,
+    AgGridModule,
+    MatSnackBarModule
   ],
   providers: [
     {

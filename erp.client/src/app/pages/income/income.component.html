@@ -1,0 +1,74 @@
+<div class="right_col" style="min-height: 99vh;">
+    <div class="x_panel">
+        <div class="x_title">
+            <button class="btn btn-warning" (click)="createIncome()"><i class="fa fa-plus"></i> Create</button>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content" style="display: block;">
+            <div *ngIf="incomes.length === 0">
+                &nbsp;No Incomes found.
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ag-grid-angular #incomeGrid class="ag-theme-quartz ag-theme-acmecorp"
+                        style="height: 80vh; width: 100%;" [rowData]="incomes" [columnDefs]="colDefs"
+                        [pagination]="pagination" [defaultColDef]="defaultColDef" [components]="frameworkComponents"
+                        [paginationPageSize]="10" [paginationPageSizeSelector]="paginationPageSizeSelector"
+                        (gridReady)="onGridReady($event)"></ag-grid-angular>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="incomeFormModal" tabindex="-1" role="dialog" aria-labelledby="incomeFormModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="incomeFormModalLabel">{{ income.i_id ? 'Update Income' : 'Create Income' }}
+                </h5>
+            </div>
+            <div class="modal-body">
+                <form #incomeForm="ngForm">
+                    <div class="form-group">
+                        <label for="i_category">Category</label>
+                        <select appSelect2 #i_category id="i_category" class="form-control"
+                            [(ngModel)]="income.i_category" name="i_category" required
+                            (selectionChanged)="onCategoryChange($event);">
+                            <option *ngFor="let c of categories" [value]="c.ct_id">{{ c.ct_name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="i_income_date">Date</label>
+                        <input type="date" id="i_income_date" class="form-control" [(ngModel)]="income.i_income_date"
+                            name="i_income_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="i_amount">Amount</label>
+                        <input type="number" id="i_amount" class="form-control" [(ngModel)]="income.i_amount"
+                            name="i_amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="i_payment_method">Payment Method</label>
+                        <select appSelect2 #i_payment_method id="i_payment_method" class="form-control"
+                            [(ngModel)]="income.i_payment_method" name="i_payment_method" required
+                            (selectionChanged)="onPaymentTypeChange($event);">
+                            <option *ngFor="let pt of paymentTypes" [value]="pt.md_id">{{ pt.md_name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="i_remarks">Remarks</label>
+                        <textarea id="i_remarks" class="form-control" [(ngModel)]="income.i_remarks" name="i_remarks"
+                            rows="7"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" (click)="createOrUpdateIncome()">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

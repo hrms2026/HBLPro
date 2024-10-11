@@ -1,0 +1,75 @@
+<div class="right_col"  customer="main" style="min-height: 99vh;">
+    <div class="x_panel">
+      <div class="x_title">
+        <button class="btn btn-warning" (click)="createCustomer()"><i class="fa fa-plus"></i> Create</button>
+        <div class="clearfix"></div>
+      </div>
+     <div class="x_content" style="display: block;">
+        <div *ngIf="customers.length === 0">
+          &nbsp;No Customers found.
+          <br/>
+        </div>
+      
+
+          <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="table table-striped jambo_table bulk_action">
+            <thead>
+              <tr class="headings">
+                <th class="column-title">Id </th>
+                <th class="column-title">Name </th>
+                <th class="column-title">Is Active</th>
+                <th class="column-title">Created By </th>
+                <th class="column-title">Created On </th>
+                <th class="column-title no-link last"><span class="nobr">Action</span></th>
+                <th class="column-title no-link last"><span class="nobr">Action</span></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="customers.length > 0">
+              <tr *ngFor="let customer of customers" id="row_{{ customer.c_id }}">
+                <td>{{ customer.c_id }}</td>
+                <td>{{ customer.c_name }}</td>
+                <td>{{ customer.c_active_yn }}</td>
+                <td>{{ customer.c_cre_by_name }}</td>
+                <td>{{ customer.c_cre_date }}</td>
+                <td>
+                  <button class="btn btn-info" (click)="editCustomer(customer.c_id)">
+                    <i class="fa fa-edit"></i> edit
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteCustomer(customer.c_id)">
+                    <i class="fa fa-trash"></i> delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  <!-- modal.component.html -->
+ 
+  <div class="modal fade" id="customerFormModal" tabindex="-1" customer="dialog" aria-labelledby="customerFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog" customer="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customerFormModalLabel">{{ customer.c_id ? 'Update Customer' : 'Create Customer' }}</h5>
+        </div>
+        <div class="modal-body">
+          <form  #userForm="ngForm">
+            <div class="form-group">
+              <label for="c_name">Name</label>
+              <input type="text" id="c_name" class="form-control" [(ngModel)]="customer.c_name" name="c_name" required>
+              <div class="invalid-feedback" *ngIf="userForm.submitted && !customer.c_name">
+                Name is required
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary" (click)="createOrUpdateCustomer()">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+
