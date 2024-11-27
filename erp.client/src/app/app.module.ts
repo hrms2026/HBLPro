@@ -24,13 +24,11 @@ import { Select2Directive } from './directives/select2.directive';
 import { DataTablesModule} from 'angular-datatables';
 import { CustomerComponent } from './pages/customer/customer.component';
 import { SupplierComponent } from './pages/supplier/supplier.component';
-import { CategoryComponent } from './pages/category/category.component';
 import { ExpenseComponent } from './pages/expense/expense.component';
 import { IncomeComponent } from './pages/income/income.component'
 import { MasterDataComponent } from './pages/master-data/master-data.component';
 import { AgGridModule } from 'ag-grid-angular'; 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ExpenseReportComponent } from './pages/expense-report/expense-report.component';
 
 // Define a function to get the token
 export function tokenGetter() {
@@ -65,11 +63,9 @@ const jwtConfig: JwtModuleOptions = {
     Select2Directive,
     CustomerComponent,
     SupplierComponent,
-    CategoryComponent,
     ExpenseComponent,
     IncomeComponent,
-    MasterDataComponent,
-    ExpenseReportComponent
+    MasterDataComponent
   ],
   imports: [
     BrowserModule,
