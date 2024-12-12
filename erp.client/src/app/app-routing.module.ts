@@ -15,6 +15,9 @@ import { CustomerComponent } from './pages/customer/customer.component';
 import { IncomeComponent } from './pages/income/income.component';
 import { ExpenseComponent } from './pages/expense/expense.component';
 import { MasterDataComponent } from './pages/master-data/master-data.component';
+import { DepartmentComponent } from './pages/department/department.component';
+import { DesignationComponent } from './pages/designation/designation.component';
+import { CompanyComponent } from './pages/company/company.component';
 
 const routes: Routes = [
   // Redirect empty path to login
@@ -76,6 +79,18 @@ const routes: Routes = [
       {
         path :'master-data',
         component :MasterDataComponent
+      },
+      {
+        path :'department',
+        component :DepartmentComponent
+      },
+      {
+        path :'designation',
+        component :DesignationComponent
+      },
+      {
+        path :'company',
+        component :CompanyComponent
       }
      
     ]

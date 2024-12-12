@@ -22,7 +22,7 @@ namespace Erp.Server.Controllers
 
         }
         [HttpPost("getSuppliers")]
-        [Authorize]
+      //  [Authorize]
         public IEnumerable<Supplier> getSuppliers()
         {
             IEnumerable<Supplier> suppliers =Enumerable.Empty<Supplier>();

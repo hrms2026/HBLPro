@@ -1,0 +1,50 @@
+<div class="right_col" supplier="main" style="min-height: 99vh;">
+  <div class="x_panel">
+    <div class="x_title">
+      <button class="btn btn-warning" (click)="createDesignation()"><i class="fa fa-plus"></i> Create</button>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content" style="display: block;">
+
+      <ag-grid-angular #designationGrid class="ag-theme-quartz ag-theme-acmecorp"
+      style="height: 80vh; width: 100%;" [rowData]="designations" [columnDefs]="colDefs"
+      [pagination]="pagination" [defaultColDef]="defaultColDef" [components]="frameworkComponents"
+      [paginationPageSize]="paginationPageSize" [paginationPageSizeSelector]="paginationPageSizeSelector"
+      (gridReady)="onGridReady($event)"></ag-grid-angular>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- modal.component.html -->
+
+<div class="modal fade" id="DesignationFormModal" tabindex="-1" Designation="dialog"
+  aria-labelledby="DesignationFormModalLabel" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="DesignationFormModalLabel">{{ designation.ds_id ? 'Update Designation' : 'Create Designation' }}
+        </h5>
+      </div>
+      <div class="modal-body">
+        <form #userForm="ngForm">
+          <div class="form-group">
+            <label for="ds_name">Name</label>
+            <input type="text" id="ds_name" class="form-control" [(ngModel)]="designation.ds_name" name="ds_name"
+              required>
+            <div class="invalid-feedback" *ngIf="userForm.submitted && !designation.ds_name">
+              Name is required
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" (click)="createOrUpdateDesignation()">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

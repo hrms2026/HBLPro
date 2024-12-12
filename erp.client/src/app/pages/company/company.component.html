@@ -1,0 +1,111 @@
+<div class="right_col" supplier="main" style="min-height: 99vh;">
+  <div class="x_panel">
+    <div class="x_title">
+      <button class="btn btn-warning" (click)="createCompany()"><i class="fa fa-plus"></i> Create</button>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content" style="display: block;">
+
+      <ag-grid-angular #companyGrid class="ag-theme-quartz ag-theme-acmecorp" style="height: 80vh; width: 100%;"
+        [rowData]="companies" [columnDefs]="colDefs" [pagination]="pagination" [defaultColDef]="defaultColDef"
+        [components]="frameworkComponents" [paginationPageSize]="paginationPageSize"
+        [paginationPageSizeSelector]="paginationPageSizeSelector" (gridReady)="onGridReady($event)"></ag-grid-angular>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="companyModal" tabindex="-1" role="dialog" aria-labelledby="companyModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="border-right"></span>
+        <h5 class="create-Company" id="companyModalLongTitle"> <p class="text-success"><b> Comapany Information</b></p></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          
+          <div class="form-group">
+            <label for="c_name"> Name</label>
+            <input type="text" id="c_name" class="form-control" [(ngModel)]="company.c_name" name="c_name">
+          </div>
+          <div class="form-group">
+            <label for="c_sname">Short Name</label>
+            <input type="text" id="c_sname" class="form-control" [(ngModel)]="company.c_sname" name="c_sname">
+          </div>
+         
+
+          <!-- Company Type -->
+
+
+          <!--  Name -->
+
+
+          <div class="form-group">
+            <label for="c_type">Type</label>
+            <input type="text" id="c_type" class="form-control" [(ngModel)]="company.c_type" name="c_type" required>
+          </div>
+
+          <!-- Country -->
+          <div class="form-group">
+            <label for="c_country">Country</label>
+            <input type="text" id="c_country" class="form-control" [(ngModel)]="company.c_country" name="c_country">
+          </div>
+
+          <!-- Address -->
+          <div class="form-group">
+            <label for="c_address">Address</label>
+            <textarea id="c_address" class="form-control" [(ngModel)]="company.c_address" name="c_address" rows="5"></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <label for="c_phone">Phone</label>
+                <input type="text" id="c_phone" class="form-control" [(ngModel)]="company.c_phone" name="c_phone"
+                  maxlength="10" pattern="^[0-9]{10}$" title="Phone number must be 10 digits" required>
+              </div>
+             
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label for="c_post_box">PO Box</label>
+                <input type="text" id="c_post_box" class="form-control" [(ngModel)]="company.c_post_box"
+                  name="c_post_box">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label for="c_fax">Fax</label>
+                <input type="text" id="c_fax" class="form-control" [(ngModel)]="company.c_fax" name="c_fax">
+              </div>
+            </div>
+          </div>
+         
+         
+          <!-- Email -->
+          <div class="form-group">
+            <label for="c_mail">Email</label>
+            <input type="email" id="c_mail" class="form-control" [(ngModel)]="company.c_mail" name="c_mail"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Please enter a valid email address"
+              required>
+          </div>
+          <!-- Website -->
+          <div class="form-group">
+            <label for="c_website">Website</label>
+            <input type="text" id="c_website" class="form-control" [(ngModel)]="company.c_website" name="c_website">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" (click)="createOrUpdateCompany()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

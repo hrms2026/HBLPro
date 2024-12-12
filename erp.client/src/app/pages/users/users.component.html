@@ -1,105 +1,121 @@
-<div class="right_col"  role="main" style="min-height: 99vh;">
+<div class="right_col" role="main" style="min-height: 99vh;">
   <div class="x_panel">
     <div class="x_title">
       <button class="btn btn-warning" (click)="createUser()"><i class="fa fa-plus"></i> Create</button>
-      <div class="clearfix"></div>
+
     </div>
-    <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="table table-striped jambo_table bulk_action text-nowrap" >
-      <thead>
-        <tr class="headings">
-          <th class="column-title">Id</th>
-          <th class="column-title">Name</th>
-          <th class="column-title">Username</th>
-          <th class="column-title">Change Password</th>
-          <th class="column-title">Role</th>
-          <th class="column-title">Email</th>
-          <th class="column-title">Is Admin</th>
-          <th class="column-title">Is Active</th>
-          <th class="column-title">Created By</th>
-          <th class="column-title">Created On</th>
-          <th class="column-title no-link last">Action</th>
-          <th class="column-title no-link last">Action</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="users.length > 0">
-        <tr *ngFor="let user of users" id="row_{{ user.u_id }}">
-          <td>{{ user.u_id }}</td>
-          <td>{{ user.u_name }}</td>
-          <td>{{ user.u_username }}</td>
-          <td>
-            <button class="btn btn-info"><i class="fa fa-key"></i></button>
-          </td>
-          <td>{{ user.u_role_name }}</td>
-          <td>{{ user.u_email }}</td>
-          <td>{{ user.u_is_admin }}</td>
-          <td>{{ user.u_active_yn }}</td>
-          <td>{{ user.u_cre_by_name }}</td>
-          <td>{{ user.u_cre_date }}</td>
-          <td>
-            <button class="btn btn-info" (click)="editUser(user.u_id)"><i class="fa fa-edit"></i> edit</button>
-          </td>
-          <td>
-            <button class="btn btn-danger" (click)="deleteUser(user.u_id)"><i class="fa fa-trash"></i> delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div class="x_content" style="display: block;">
+
+      <ag-grid-angular #userGrid class="ag-theme-quartz ag-theme-acmecorp" style="height: 80vh; width: 100%;"
+        [rowData]="users" [columnDefs]="colDefs" [pagination]="pagination" [defaultColDef]="defaultColDef"
+        [components]="frameworkComponents" [paginationPageSize]="paginationPageSize"
+        [paginationPageSizeSelector]="paginationPageSizeSelector" (gridReady)="onGridReady($event)"></ag-grid-angular>
+
+    </div>
   </div>
 </div>
+
+
 <!-- modal.component.html -->
-<div class="modal fade" id="userFormModal"  role="dialog" aria-labelledby="userFormModalLabel" aria-hidden="true" #userFormModal>
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="usersModal"  role="dialog" aria-labelledby="usersModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="userFormModalLabel">{{ user.u_id ? 'Update User' : 'Create User' }}</h5>
+        <span class="border-right"></span>
+        <h5 class="create-users" id="usersModalLongTitle">
+          <p class="text-success"><b> Create users</b></p>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
-        <form  #userForm="ngForm">
-          <div class="form-group">
-            <label for="u_name">Name</label>
-            <input type="text" id="u_name" class="form-control" [(ngModel)]="user.u_name" name="u_name" required>
-            <div class="invalid-feedback" *ngIf="userForm.submitted && !user.u_name">
-              Full Name is required
-            </div>
-          </div>
+        <div class="form-group">
+          <label for="u_name">Name</label>
+          <input type="text" id="u_name" class="form-control" [(ngModel)]="user.u_name" name="u_name" required>
+        </div>
+        <div class="form-group">
+          <label for="u_username">Username</label>
+          <input type="text" id="u_username" class="form-control" [(ngModel)]="user.u_username" name="u_username"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="u_password">Password</label>
+          <input type="password" id="u_password" class="form-control" [(ngModel)]="user.u_password" name="u_password"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="u_role_id">Role</label>
+          <select appSelect2 #u_role_id id="u_role_id" class="form-control" [(ngModel)]="user.u_role_id"
+            name="u_role_id" required (selectionChanged)="OnRoleChange($event);">
+            <option *ngFor="let role of roles" [value]="role.r_id" >{{ role.r_name }}</option>
+          </select>
 
-          <div class="form-group">
-            <label for="u_username">Username</label>
-            <input type="text" id="u_username" class="form-control" [(ngModel)]="user.u_username" name="u_username" required>
-            <div class="invalid-feedback" *ngIf="userForm.submitted && !user.u_username">
-              Username is required
-            </div>
-          </div>
+        </div>
+        <div class="form-group">
+          <label for="u_email">Email</label>
+          <input type="email" id="u_email" class="form-control" [(ngModel)]="user.u_email" name="u_email" required>
+        </div>
+      
+        <div class="form-group">
+          <label for="u_m_name">Mother Name</label>
+          <input type="text" id="u_m_name" class="form-control" [(ngModel)]="user.u_m_name" name="u_m_name">
+        </div>
+        <div class="form-group">
+          <label for="u_f_name">Father Name</label>
+          <input type="text" id="u_f_name" class="form-control" [(ngModel)]="user.u_f_name" name="u_f_name">
+        </div>
+        <div class="form-group">
+          <label for="u_passport_no">Passport No</label>
+          <input type="text" id="u_f_name" class="form-control" [(ngModel)]="user.u_passport_no" name="u_passport_no">
+        </div>
+        <div class="form-group">
+          <label for="u_contact_person">Contact person </label>
+          <input type="text" id="u_contact_person" class="form-control" [(ngModel)]="user.u_contact_person"
+            name="u_contact_person">
+        </div>
 
-          <div class="form-group">
-            <label for="u_password">Password</label>
-            <input type="password" id="u_password" class="form-control" [(ngModel)]="user.u_password" name="u_password" required >
-            <div class="invalid-feedback" *ngIf="userForm.submitted && !user.u_password">
-              Password is required
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="u_role_id">Role</label>
-            <select  appSelect2  #u_role_id id="u_role_id" class="form-control" [(ngModel)]="user.u_role_id" name="u_role_id" required  (selectionChanged)="OnRoleChange($event);">
-              <option *ngFor="let role of roles" [value]="role.r_id">{{ role.r_name }}</option>
-            </select>
-            <div class="invalid-feedback" *ngIf="userForm.submitted && !user.u_role_id">
-              Role is required
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="u_email">Email</label>
-            <input type="email" id="u_email" class="form-control" [(ngModel)]="user.u_email" name="u_email" required>
-            <div class="invalid-feedback" *ngIf="userForm.submitted && !user.u_email">
-              Email is required
-            </div>
-          </div>
-         
-        </form>
+
+
+
+        <div class="form-group">
+          <label for="u_nationality">u_nationality</label>
+          <input type="text" id="u_nationality" class="form-control" [(ngModel)]="user.u_nationality"
+            name="u_nationality">
+        </div>
+        <div class="form-group">
+          <label for="u_date_of_birth">Date of Birth</label>
+          <input type="text" id="u_date_of_birth" class="form-control" [(ngModel)]="user.u_date_of_birth"
+            name="u_date_of_birth">
+        </div>
+        <div class="form-group">
+          <label for="u_gender">gender</label>
+          <input type="text" id="u_gender" class="form-control" [(ngModel)]="user.u_gender" name="u_gender">
+        </div>
+        <div class="form-group">
+          <label for="u_address">Address</label>
+          <input type="text" id="u_address" class="form-control" [(ngModel)]="user.u_address" name="u_address">
+        </div>
+        <div class="form-group">
+          <label for="u_emp_code">EMP code</label>
+          <input type="text" id="u_emp_code" class="form-control" [(ngModel)]="user.u_emp_code" name="u_emp_code">
+        </div>
+        <div class="form-group">
+          <label for="u_file_no">File No</label>
+          <input type="text" id="u_file_no" class="form-control" [(ngModel)]="user.u_file_no" name="u_file_no">
+        </div>
+        <div class="form-group">
+          <label for="u_date_of_join">Date of Join</label>
+          <input type="text" id="u_date_of_join" class="form-control" [(ngModel)]="user.u_date_of_join"
+            name="u_date_of_join">
+        </div>
+       
       </div>
-      <div class="modal-footer d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary" (click)="createOrUpdateUser()">Save</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" (click)="createOrUpdateUser()">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

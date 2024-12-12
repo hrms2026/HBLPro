@@ -29,6 +29,9 @@ import { IncomeComponent } from './pages/income/income.component'
 import { MasterDataComponent } from './pages/master-data/master-data.component';
 import { AgGridModule } from 'ag-grid-angular'; 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DepartmentComponent } from './pages/department/department.component';
+import { DesignationComponent } from './pages/designation/designation.component';
+import { CompanyComponent } from './pages/company/company.component';
 
 // Define a function to get the token
 export function tokenGetter() {
@@ -65,7 +68,10 @@ const jwtConfig: JwtModuleOptions = {
     SupplierComponent,
     ExpenseComponent,
     IncomeComponent,
-    MasterDataComponent
+    MasterDataComponent,
+    DepartmentComponent,
+    DesignationComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
