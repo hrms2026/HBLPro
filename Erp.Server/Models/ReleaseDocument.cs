@@ -35,7 +35,6 @@ namespace Erp.Server.Models
         [Display(Name = "released name")]
         public string? rd_released_name { get; set; } = string.Empty;
 
-
         [Display(Name = "released date")]
         public DateTime? rd_released_date { get; set; } = DateTime.Now;
 
@@ -47,6 +46,9 @@ namespace Erp.Server.Models
 
         [Display(Name = "Received By")]
         public int? rd_received_by { get; set; }
+
+        [Display(Name = "Received By")]
+        public string? rd_received_by_name { get; set; }
 
         [Display(Name = "Received Date")]
         public DateTime? rd_received_date { get; set; } 

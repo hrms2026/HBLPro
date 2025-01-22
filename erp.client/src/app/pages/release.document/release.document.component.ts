@@ -91,19 +91,27 @@ export class ReleaseDocumentComponent implements OnInit {
     {
       headerName: 'Receieve', cellRenderer: 'actionRenderer', cellRendererParams:
       {
-        name: 'Receive', action: 'onReceive', cssClass: 'btn btn-success', icon: 'fa fa-check circle', onReceive: (data: any) => this.onAction('Receive', data)
+        name: 'Receive', action: 'onReceive', cssClass: 'btn btn-success', icon: 'fa fa-check circle',
+        disable: (data: any) => data.rd_received_yn == 'Y' ? true : false,
+        onReceive: (data: any) => this.onAction('Receive', data)
       },
     },
+    { headerName: "Received By", field: "rd_received_by_name" },
+    { headerName: "Received Date", field: "rd_received_date" },
     {
       headerName: 'Edit', cellRenderer: 'actionRenderer', cellRendererParams:
       {
-        name: 'Edit', action: 'onEdit', cssClass: 'btn btn-info', icon: 'fa fa-edit', onEdit: (data: any) => this.onAction('edit', data)
+        name: 'Edit', action: 'onEdit', cssClass: 'btn btn-info', icon: 'fa fa-edit',
+        disable: (data: any) => data.rd_received_yn == 'Y' ? true : false,
+        onEdit: (data: any) => this.onAction('edit', data)
       },
     },
     {
       headerName: 'Delete', cellRenderer: 'actionRenderer', cellRendererParams:
       {
-        name: 'Delete', action: 'onDelete', cssClass: 'btn btn-danger', icon: 'fa fa-trash', onDelete: (data: any) => this.onAction('delete', data)
+        name: 'Delete', action: 'onDelete', cssClass: 'btn btn-danger',
+        disable: (data: any) => data.rd_received_yn == 'Y' ? true : false,
+        icon: 'fa fa-trash', onDelete: (data: any) => this.onAction('delete', data)
       },
     },
 
@@ -217,12 +225,11 @@ export class ReleaseDocumentComponent implements OnInit {
   }
 
   OnEmployeeChange(u_id: number) {
+    this.releaseDocument.rd_emp_id =Number(u_id);
     this.iuserService.getUser(Number(u_id)).subscribe(
       (data: User) => {
         this.user = data;
-        this.releaseDocument.rd_emp_id = data.u_id;
         this.releaseDocument.rd_passport_no = data.u_passport_no;
-
       },
       (error: any) => {
         console.error('Error fetching user', error);
@@ -264,24 +271,30 @@ export class ReleaseDocumentComponent implements OnInit {
 
 
   createOrUpdateReleaseDocument() {
-    if (this.releasedocument.rd_emp_id != 0)
+    if (this.releaseDocument.rd_emp_id!==0 && this.reason!='' && this.releaseDocument.rd_passport_no!="" && this.releaseDocument.rd_released_to!=0) {
       this.releaseDocument.rd_reason = this.reason.toString();
-    this.releaseDocument.rd_cre_by = this.currentUser.u_id;
-    this.iReleaseDocumentService.createOrUpdateReleaseDocument(this.releaseDocument).subscribe(
-      (data: DbResult) => {
-        this.dbResult = data;
-        if (data.message == "Success") {
-          this.releaseDocumentGrid.api.applyTransaction({});
-          this.getreleasedocuments();
-          $('#documentModal').modal('hide');
-        } else {
-          alert(data.message);
-        }
+      this.releaseDocument.rd_cre_by = this.currentUser.u_id;
+      this.iReleaseDocumentService.createOrUpdateReleaseDocument(this.releaseDocument).subscribe(
+        (data: DbResult) => {
+          this.dbResult = data;
+          if (data.message == "Success") {
+            this.releaseDocumentGrid.api.applyTransaction({});
+            this.getreleasedocuments();
+            $('#documentModal').modal('hide');
+          } else {
+            alert(data.message);
+          }
+        },
+        (error) => {
+          alert('An error occurred while updating the release document.');
       }
-
-    );
-
+     );
+  
+    }else {
+      alert('Please fill in all required fields.');
+    
   }
+}
   setSelect2Fields() {
     $("#rd_emp-id").select2().val(this.releasedocument.rd_emp_id).trigger("change");
     $("#rd_released_to").select2().val(this.releasedocument.rd_released_to).trigger("change");

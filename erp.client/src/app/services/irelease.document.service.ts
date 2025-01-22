@@ -34,6 +34,7 @@ export class IReleaseDocumentService {
   createOrUpdateReleaseDocument(releasedocument: ReleaseDocument): Observable<DbResult> {
     releasedocument.rd_cre_date = new Date().toISOString();
     releasedocument.rd_released_date = new Date().toISOString();
+    releasedocument.rd_received_date=new Date().toISOString();
     
     return this.http.post<DbResult>(`${this.apiUrl}/createOrUpdateReleaseDocument`, releasedocument); 
   }

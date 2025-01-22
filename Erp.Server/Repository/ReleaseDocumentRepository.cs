@@ -66,7 +66,9 @@ namespace Erp.Server.Repository
         {
             var _flag = new SqlParameter("flag", requestParams.flag + "");
             var _daterange = new SqlParameter("daterange", requestParams.daterange + "");
-            var releasedocuments = db.Set<ReleaseDocument>().FromSqlRaw("EXEC dbo.getReleaseDocuments @flag,@daterange;", _flag, _daterange).ToList();
+            var _currentUserId = new SqlParameter("currentUserId", requestParams.currentUserId + "");
+
+            var releasedocuments = db.Set<ReleaseDocument>().FromSqlRaw("EXEC dbo.getReleaseDocuments @flag,@daterange,@currentUserId;", _flag, _daterange,_currentUserId).ToList();
             return releasedocuments;
         }
     }

@@ -41,6 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core'; 
 import { ReleaseDocumentComponent } from './pages/release.document/release.document.component';
+import { ActionRendererComponent } from './directives/action.renderer';
 
 // Define a function to get the token
 export function tokenGetter() {
@@ -72,6 +73,7 @@ const jwtConfig: JwtModuleOptions = {
     MenuComponent,
     PurchaseOrderComponent,
     MenuAllocationComponent,
+    ActionRendererComponent,
     Select2Directive,
     CustomerComponent,
     SupplierComponent,
@@ -100,7 +102,7 @@ const jwtConfig: JwtModuleOptions = {
     MatButtonModule,
     MatDatepickerModule,
     MatIconModule,
-    MatNativeDateModule,  // Added MatNativeDateModule for Material date pickers
+    MatNativeDateModule
   ],
   providers: [
     {

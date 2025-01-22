@@ -10,11 +10,11 @@ export class ReleaseDocument {
   rd_released_to: number;
   rd_released_date: string;
   rd_reason: string;
-  rd_receive_yn: string;
-  rd_receive_by:number;
-  rd_receive_by_name:string;
-  rd_receive_date:string;
-  rd_status: string;
+  rd_received_yn: string;
+  rd_received_by:number;
+  rd_received_by_name:string;
+  rd_received_date:string;
+  
   
 
   constructor() {
@@ -27,11 +27,11 @@ export class ReleaseDocument {
     this.rd_released_to = 0;
     this.rd_released_date = '';
     this.rd_reason = '';
-    this.rd_receive_yn = '';
-    this.rd_receive_by =0;
-    this.rd_receive_by_name = '';
-    this.rd_receive_date='';
-    this.rd_status='';
+    this.rd_received_yn = '';
+    this.rd_received_by =0;
+    this.rd_received_by_name = '';
+    this.rd_received_date='';
+    
   }
 
 }
