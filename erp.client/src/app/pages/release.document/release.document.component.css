@@ -1,0 +1,49 @@
+/* Style for the round toggle button */
+input[type="checkbox"] {
+    display: none;
+  }
+  
+  input[type="checkbox"]:checked + .toggle-btn {
+    background-color: #4CAF50; /* Green when checked */
+  }
+  
+  .toggle-btn {
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 50px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-btn::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+  
+  input[type="checkbox"]:checked + .toggle-btn::before {
+    transform: translateX(20px); /* Moves the circle to the right when checked */
+  }
+  
+  label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+  /* Style for the formatted date displayed near the toggle */
+.date-display {
+  font-size: 14px;
+  font-weight: bold;
+  color: #4CAF50; /* Green color */
+  margin-left: 10px;
+}

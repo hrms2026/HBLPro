@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-      <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span> A2C ERP </span></a>
+      <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>  ERP </span></a>
     </div>
 
     <div class="clearfix"></div>
@@ -30,7 +30,7 @@
           </li>
           <li *ngFor="let menu of menus"><a><i class="fa {{menu.m_fa_icon}}"></i> {{menu.m_name}} <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li *ngFor="let menuitem of menu.m_menu_items"><a href="{{menuitem.m_link}}">{{menuitem.m_name}}</a></li>
+              <li *ngFor="let menuitem of menu.m_menu_items"><a (click)="navigateTo(menuitem.m_link)">{{menuitem.m_name}}</a></li>
               
             </ul>
           </li>

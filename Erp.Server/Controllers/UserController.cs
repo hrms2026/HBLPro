@@ -21,7 +21,7 @@ namespace Erp.Server.Controllers
         }
            
         [HttpPost("getUsers")]
-        [Authorize]
+       // [Authorize]
         public IEnumerable<User> getUsers()
         {
 
@@ -32,7 +32,7 @@ namespace Erp.Server.Controllers
 
 
         [HttpPost("getUser")]
-        [Authorize]
+     //   [Authorize]
         public User getUser([FromBody] int id)
         {
             User user = new User();
@@ -41,7 +41,7 @@ namespace Erp.Server.Controllers
         }
 
         [HttpPost("deleteUser")]
-        [Authorize]
+     //   [Authorize]
         public DbResult deleteUser([FromBody] int id)
         {
             DbResult dbResult=new DbResult();
@@ -50,7 +50,7 @@ namespace Erp.Server.Controllers
         }
 
         [HttpPost("createOrUpdateUser")]
-        [Authorize]
+      //  [Authorize]
         public DbResult createOrUpdateUser([FromBody] User user)
         {
             DbResult dbResult = new DbResult();

@@ -18,9 +18,8 @@
 
 
 <!-- modal.component.html -->
-<div class="modal fade" id="usersModal"  role="dialog" aria-labelledby="usersModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+<div class="modal fade" id="usersModal" role="dialog" aria-labelledby="usersModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <span class="border-right"></span>
@@ -31,92 +30,352 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
-        <div class="form-group">
-          <label for="u_name">Name</label>
-          <input type="text" id="u_name" class="form-control" [(ngModel)]="user.u_name" name="u_name" required>
-        </div>
-        <div class="form-group">
-          <label for="u_username">Username</label>
-          <input type="text" id="u_username" class="form-control" [(ngModel)]="user.u_username" name="u_username"
-            required>
-        </div>
-        <div class="form-group">
-          <label for="u_password">Password</label>
-          <input type="password" id="u_password" class="form-control" [(ngModel)]="user.u_password" name="u_password"
-            required>
-        </div>
-        <div class="form-group">
-          <label for="u_role_id">Role</label>
-          <select appSelect2 #u_role_id id="u_role_id" class="form-control" [(ngModel)]="user.u_role_id"
-            name="u_role_id" required (selectionChanged)="OnRoleChange($event);">
-            <option *ngFor="let role of roles" [value]="role.r_id" >{{ role.r_name }}</option>
-          </select>
 
-        </div>
-        <div class="form-group">
-          <label for="u_email">Email</label>
-          <input type="email" id="u_email" class="form-control" [(ngModel)]="user.u_email" name="u_email" required>
-        </div>
-      
-        <div class="form-group">
-          <label for="u_m_name">Mother Name</label>
-          <input type="text" id="u_m_name" class="form-control" [(ngModel)]="user.u_m_name" name="u_m_name">
-        </div>
-        <div class="form-group">
-          <label for="u_f_name">Father Name</label>
-          <input type="text" id="u_f_name" class="form-control" [(ngModel)]="user.u_f_name" name="u_f_name">
-        </div>
-        <div class="form-group">
-          <label for="u_passport_no">Passport No</label>
-          <input type="text" id="u_f_name" class="form-control" [(ngModel)]="user.u_passport_no" name="u_passport_no">
-        </div>
-        <div class="form-group">
-          <label for="u_contact_person">Contact person </label>
-          <input type="text" id="u_contact_person" class="form-control" [(ngModel)]="user.u_contact_person"
-            name="u_contact_person">
-        </div>
+        <mat-tab-group>
+
+          <mat-tab label="Basic">
+            <br />
+            <div class="container-fluid">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="u_emp_code">EMP code</label>
+                  <input type="text" id="u_emp_code" class="form-control" [(ngModel)]="user.u_emp_code"
+                    autocomplete="off" name="u_emp_code">
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label for="u_name">Name</label>
+                  <input type="text" id="u_name" class="form-control" [(ngModel)]="user.u_name" autocomplete="off"
+                    name="u_name" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_username">Username</label>
+                  <input type="text" id="u_username" class="form-control" [(ngModel)]="user.u_username"
+                    autocomplete="off" name="u_username" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_password">Password</label>
+                  <input type="password" id="u_password"  [disabled]="isEditing" class="form-control" [(ngModel)]="user.u_password"
+                    name="u_password" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_role_id">Role</label>
+                  <select appSelect2 #u_role_id id="u_role_id" class="form-control" [(ngModel)]="user.u_role_id"
+                    name="u_role_id" required (selectionChanged)="OnRoleChange($event);">
+                    <option *ngFor="let role of roles" [value]="role.r_id">{{ role.r_name }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_mother_name">Mother Name</label>
+                  <input type="text" id="u_mother_name" class="form-control" [(ngModel)]="user.u_mother_name"
+                    autocomplete="off" name="u_mother_name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_f_name">Father Name</label>
+                  <input type="text" id="u_father_name" class="form-control" [(ngModel)]="user.u_father_name"
+                    autocomplete="off" name="u_father_name">
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_contact_person">Contact person </label>
+                  <input type="text" id="u_contact_person" class="form-control" [(ngModel)]="user.u_contact_person"
+                    autocomplete="off" name="u_contact_person">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_nationality">Nationality</label>
+                  <select appSelect2 #u_nationality id="u_nationality" class="form-control"
+                    [(ngModel)]="user.u_nationality" autocomplete="off" name="u_nationality" required
+                    (selectionChanged)="OnNationiltyChange($event);">
+                    <option value="">Select Nationality</option>
+                    <option *ngFor="let n of nationalities" [value]="n.md_id">{{ n.md_name }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_date_of_birth">Date of Birth</label>
+                  <input type="date" id="u_date_of_birth" class="form-control" [(ngModel)]="user.u_date_of_birth"
+                    autocomplete="off" name="u_date_of_birth">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_gender">gender</label>
+                  <select appSelect2 #u_gender id="u_gender" class="form-control" [(ngModel)]="user.u_gender"
+                    name="u_gender" required (selectionChanged)="OnGenderChange($event);">
+                    <option value="">Select an option</option>
+                    <option *ngFor="let g of genders" [value]="g.md_id">{{ g.md_name }}</option>
+                  </select>
+                </div>
+              </div>
 
 
 
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="u_date_of_join">Date of Join</label>
+                  <input type="date" id="u_date_of_join" class="form-control" [(ngModel)]="user.u_date_of_join"
+                    autocomplete="off" name="u_date_of_join">
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Contact">
+            <br />
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label for="u_contact_email">Email</label>
+                  <input type="email" id="u_contact_email" class="form-control" [(ngModel)]="user.u_contact_email"
+                    autocomplete="off" name="u_contact_email">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_contact_mobile">Mobile</label>
+                  <input type="text" id="u_contact_mobile" class="form-control" [(ngModel)]="user.u_contact_mobile"
+                    autocomplete="off" name="u_contact_mobile">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_contact_home">Home</label>
+                  <input type="text" id="u_contact_home" class="form-control" [(ngModel)]="user.u_contact_home"
+                    autocomplete="off" name="u_contact_home">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_contact_office">Office</label>
+                  <input type="text" id="u_contact_office" class="form-control" [(ngModel)]="user.u_contact_office"
+                    autocomplete="off" name="u_contact_office">
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="u_contact_address">Address</label>
+                    <textarea id="u_contact_address" class="form-control" [(ngModel)]="user.u_contact_address"
+                      autocomplete="off" name="u_contact_address" rows="5"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-3 form-group mt-4">
+                  <label>Sim required
+                    <input type="checkbox" [(ngModel)]="simRequired" id="simRequired" name="simRequired" 
+                      (change)="onSimRequiredChange($event)">
+                  </label>
+                </div>
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <label>Marital Status</label><br>
+                    <select appSelect2  id="u_marital_status" class="form-control"
+                      [(ngModel)]="user.u_marital_status"  name="u_marital_status" (selectionChanged)="OnMaritalStatusChange($event);">
+                      <option [value]="">Select marital status</option>
+                      <option *ngFor="let m of maritalStatus" [value]="m.md_id">{{ m.md_name }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="u_religion">Religion</label>
+                    <select appSelect2  id="u_religion" class="form-control" [(ngModel)]="user.u_religion"
+                      name="u_religion" (selectionChanged)="OnReligionChange($event);">
+                      <option [value]="">Select Religion</option>
+                      <option *ngFor="let re of religions" [value]="re.md_id">{{ re.md_name }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="u_qualification">Qualification</label>
+                  <select appSelect2  id="u_qualification" class="form-control"
+                    [(ngModel)]="user.u_qualification" name="u_qualification" required
+                    (selectionChanged)="OnQualificationChange($event);">
+                    <option [value]="">Select Qualification</option>
+                    <option *ngFor="let q of qualifications" [value]="q.md_id">{{ q.md_name }}</option>
 
-        <div class="form-group">
-          <label for="u_nationality">u_nationality</label>
-          <input type="text" id="u_nationality" class="form-control" [(ngModel)]="user.u_nationality"
-            name="u_nationality">
-        </div>
-        <div class="form-group">
-          <label for="u_date_of_birth">Date of Birth</label>
-          <input type="text" id="u_date_of_birth" class="form-control" [(ngModel)]="user.u_date_of_birth"
-            name="u_date_of_birth">
-        </div>
-        <div class="form-group">
-          <label for="u_gender">gender</label>
-          <input type="text" id="u_gender" class="form-control" [(ngModel)]="user.u_gender" name="u_gender">
-        </div>
-        <div class="form-group">
-          <label for="u_address">Address</label>
-          <input type="text" id="u_address" class="form-control" [(ngModel)]="user.u_address" name="u_address">
-        </div>
-        <div class="form-group">
-          <label for="u_emp_code">EMP code</label>
-          <input type="text" id="u_emp_code" class="form-control" [(ngModel)]="user.u_emp_code" name="u_emp_code">
-        </div>
-        <div class="form-group">
-          <label for="u_file_no">File No</label>
-          <input type="text" id="u_file_no" class="form-control" [(ngModel)]="user.u_file_no" name="u_file_no">
-        </div>
-        <div class="form-group">
-          <label for="u_date_of_join">Date of Join</label>
-          <input type="text" id="u_date_of_join" class="form-control" [(ngModel)]="user.u_date_of_join"
-            name="u_date_of_join">
-        </div>
-       
+                  </select>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="u_specialized_in">Specialized In</label>
+                  <input type="text" id="u_specialized_in" class="form-control" [(ngModel)]="user.u_specialized_in"
+                    autocomplete="off" name="u_specialized_in">
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Documents">
+            <br />
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label for="u_visa_from">Visa From</label>
+                  <select id="u_visa_from" class="form-control" [(ngModel)]="user.u_visa_from" name="visa_from">
+                    <option *ngFor="let c of visaFrom" [value]="c.c_sname">{{ c.c_sname }}</option>
+
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="u_file_no">File No</label>
+                    <input type="text" id="u_file_no" class="form-control" [(ngModel)]="user.u_file_no"
+                      autocomplete="off" name="u_file_no">
+                  </div>
+                </div>
+
+                <div class="col-md-4 form-group">
+                  <label for="u_visa_uid">Visa UID</label>
+                  <input type="text" id="u_visa_uid" class="form-control" [(ngModel)]="user.u_visa_uid" name="visa_uid">
+                </div>
+
+                <div class="col-md-4 form-group">
+                  <label for="u_visa_issue_date">Visa Issue Date</label>
+                  <input type="date" id="u_visa_issue_date" class="form-control" [(ngModel)]="user.u_visa_issue_date"
+                    name="u_visa_issue_date">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_visa_expiry_date">Visa Expiry Date</label>
+                  <input type="date" id="u_visa_expiry_date" class="form-control" [(ngModel)]="user.u_visa_expiry_date"
+                    name="u_visa_expiry_date">
+                </div>
+                <br>
+                <div class="col-md-4 form-group">
+                  <label for="u_labour_id">Labour ID</label>
+                  <input type="text" id="u_labour_id" class="form-control" [(ngModel)]="user.u_labour_id"
+                    autocomplete="off" name="u_labour_id">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_labour_issue_date">Labour Issue Date</label>
+                  <input type="date" id="u_labour_issue_date" class="form-control"
+                    [(ngModel)]="user.u_labour_issue_date" name="u_labour_issue_date">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_labour_expiry_date">Labour Expiry Date</label>
+                  <input type="date" id="u_labour_expiry_date" class="form-control"
+                    [(ngModel)]="user.u_labour_expiry_date" name="u_labour_expiry_date">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_emid">EmID </label>
+                  <input type="text" id="u_emid" class="form-control" [(ngModel)]="user.u_emid" name="u_emid">
+                </div>
+
+                <div class="col-md-4 form-group">
+                  <label for="u_emid_issue_date">EmID Issue Date</label>
+                  <input type="date" id="u_emid_issue_date" class="form-control" [(ngModel)]="user.u_emid_issue_date"
+                    name="u_emid_issue_date">
+                </div>
+
+                <div class="col-md-4 form-group">
+                  <label for="u_emid_expiry_date">EmID Expiry Date</label>
+                  <input type="date" id="u_emid_expiry_date" class="form-control" [(ngModel)]="user.u_emid_expiry_date"
+                    name="u_emid_expiry_date">
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="u_passport_no">Passport No</label>
+                    <input type="text" id="u_passport_no" class="form-control" [(ngModel)]="user.u_passport_no"
+                      autocomplete="off" name="u_passport_no">
+                  </div>
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_passport_issue_date">Passport Issue Date</label>
+                  <input type="date" id="u_passport_issue_date" class="form-control"
+                    [(ngModel)]="user.u_passport_issue_date" name="u_passport_issue_date">
+                </div>
+                <div class="col-md-4 form-group">
+                  <label for="u_passport_expiry_date">Passport Expiry Date</label>
+                  <input type="date" id="u_passport_expiry_date" class="form-control"
+                    [(ngModel)]="user.u_passport_expiry_date" name="u_passport_expiry_date">
+                </div>
+
+              </div>
+            </div>
+
+          </mat-tab>
+          <mat-tab label="Salary">
+            <br />
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label for="u_personal_id">Personal ID</label>
+                  <input type="text" id="u_personal_id" class="form-control" [(ngModel)]="user.u_personal_id"
+                    autocomplete="off" name="u_personal_id">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="u_payment_method">Payment Method</label>
+                  <select appSelect2 #u_payment_method id="u_payment_method" name="u_payment_method"
+                    [(ngModel)]="user.u_payment_method" required (selectionChanged)="OnPaymentMethodChange($event);"
+                    class="form-control">
+                    <option value="">Select Branch</option>
+                    <option *ngFor="let p of paymentmethods" [value]="p.md_id">{{ p.md_name }}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="u_account_no">Account No</label>
+                  <input type="text" id="u_account_no" class="form-control" [(ngModel)]="user.u_account_no"
+                    autocomplete="off" name="u_account_no">
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="u_uae_exchange_branch"> Exchange</label>
+                  <select appSelect2 #u_exchange id="u_uae_exchange_branch" class="form-control"
+                    [(ngModel)]="user.u_uae_exchange_branch" name="u_uae_exchange_branch" required
+                    (selectionChanged)="OnUaeExchangeBranchChange($event);">
+                    <option value="">Select Branch</option>
+                    <option *ngFor="let e of exchanges" [value]="e.md_id">{{ e.md_name }}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-2 form-group">
+                  <label>&nbsp;Basic Salary</label>
+                  <input type="number" id="u_basic_salary" class="form-control" [(ngModel)]="user.u_basic_salary"
+                    name="u_basic_salary" placeholder="0">
+                </div>
+                <div class="col-md-2 form-group">
+                  <label>Allowance</label>
+                  <input type="number" id="u_allowance" class="form-control" [(ngModel)]="user.u_allowance"
+                    name="u_allowance" placeholder="0">
+                </div>
+                <div class="col-md-2 form-group">
+                  <label for="u_over_time">Over Time</label>
+                  <input type="number" id="u_over_time" class="form-control" [(ngModel)]="user.u_over_time"
+                    name="u_over_time" placeholder="0">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="u_present_salary">Present Salary</label>
+                  <input type="number" id="u_present_salary" class="form-control" [(ngModel)]="user.u_present_salary"
+                    name="u_present_salary" placeholder="0">
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="u_benefits_after">Benefits After</label>
+                  <select appSelect2 id="u_benefits_after" class="form-control" [(ngModel)]="user.u_benefits_after"
+                    required (selectionChanged)="OnBenefitsAfterChange($event);" name="u_benefits_after">
+                    <option *ngFor="let m of benifitsafter" [value]="m.md_id">{{ m.md_name }} </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" (click)="createOrUpdateUser()">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
+
     </div>
   </div>
 </div>

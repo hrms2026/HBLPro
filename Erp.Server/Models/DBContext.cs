@@ -22,6 +22,7 @@ namespace Erp.Server.Models
         public DbSet<MasterType> MasterTypes { get; set; }
         public DbSet<Designation> Designation { get; set; }
         public DbSet<Company> companies { get; set; }
+        public DbSet<ReleaseDocument> releasedocuments { get; set; }
 
 
 

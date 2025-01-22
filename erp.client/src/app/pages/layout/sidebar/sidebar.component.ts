@@ -40,4 +40,7 @@ export class SidebarComponent implements OnInit {
       }
     );
   }
+  navigateTo(moveto: string) {
+    this.router.navigate(['/'+moveto]);
+  }
 }

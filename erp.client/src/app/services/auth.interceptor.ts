@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
-
+    
     let authReq = req;
     if (token) {
       authReq = req.clone({
@@ -21,6 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
+      
         // Check if the error status is 401 (Unauthorized)
         if (error.status === 401) {
           // Clear the token and redirect to login

@@ -10,6 +10,12 @@ import { ILoginService } from './ilogin.service';
   providedIn: 'root'
 })
 export class IuserService {
+  refreshReleaseDocuments() {
+    throw new Error('Method not implemented.');
+  }
+  getReleaseDocuments() {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = `${environment.serverHostAddress}/api/User`;
   private refreshUsersSubject = new Subject<void>();
 

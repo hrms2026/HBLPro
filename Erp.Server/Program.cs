@@ -100,6 +100,8 @@ builder.Services.AddTransient<ICategory, CategoryRepository>();
 builder.Services.AddTransient<IMasterData, MasterDataRepository>();
 builder.Services.AddTransient<IDesignation, DesignationRepository>();
 builder.Services.AddTransient<ICompany, CompanyRepository>();
+builder.Services.AddTransient<IReleaseDocument, ReleaseDocumentRepository>();
+
 
 var app = builder.Build();
 

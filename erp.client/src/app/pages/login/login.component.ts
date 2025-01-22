@@ -30,8 +30,9 @@ export class LoginComponent implements OnInit {
           // Store JWT token in local storage
           localStorage.setItem('token', data.token);
           sessionStorage.setItem('user',JSON.stringify(data.user))
+       
           // Navigate to the home page
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['/dashboard']);
         } else {
           // Handle failed login
           alert(data.message || 'Login failed');

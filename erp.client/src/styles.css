@@ -2,6 +2,7 @@
 @import 'ag-grid-community/styles/ag-grid.css';
 /* Quartz Theme Specific CSS */
 @import 'ag-grid-community/styles/ag-theme-quartz.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 body {
   margin: 0px !important;
 }
@@ -52,4 +53,28 @@ table.jambo_table thead {
     --mat-mdc-snack-bar-button-color: #fff;
     --mdc-snackbar-supporting-text-color: #fff;
   }
+}
+
+.example-form mat-slide-toggle {
+  margin: 8px 0;
+  display: block;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  transform: scale(1.5); /* Increase the size of the toggle */
+  font-size: 1.2rem;     /* Increase the size of the label */
+  margin: 8px 0;
+}
+
+.toggle-text {
+  margin-bottom: 8px; /* Add space between the text and the toggle */
+  font-size: 1.1rem;  /* Adjust the font size if needed */
+}
+
+
+.mat-date-range-picker-content {
+  position: relative !important;
+  display: block !important;
+  top: auto !important;
+  left: auto !important;
 }

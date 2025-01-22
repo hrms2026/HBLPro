@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';  // Import ReactiveFormsModule if using reactive forms
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt'; // Ensure correct import
+import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -14,24 +14,33 @@ import { TopnavComponent } from './pages/layout/topnav/topnav.component';
 import { FooterComponent } from './pages/layout/footer/footer.component';
 import { HeaderComponent } from './pages/layout/header/header.component';
 import { UsersComponent } from './pages/users/users.component';
-import { RoleComponent } from './pages/role/role.component';// Adjust import path as necessary
+import { RoleComponent } from './pages/role/role.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { environment } from '../environments/environment';
 import { MenuComponent } from './pages/menu/menu.component';
 import { MenuAllocationComponent } from './pages/menu.allocation/menu.allocation.component';
 import { PurchaseOrderComponent } from './pages/purchase.order/purchase.order.component';
 import { Select2Directive } from './directives/select2.directive';
-import { DataTablesModule} from 'angular-datatables';
+import { DataTablesModule } from 'angular-datatables';
 import { CustomerComponent } from './pages/customer/customer.component';
 import { SupplierComponent } from './pages/supplier/supplier.component';
 import { ExpenseComponent } from './pages/expense/expense.component';
-import { IncomeComponent } from './pages/income/income.component'
+import { IncomeComponent } from './pages/income/income.component';
 import { MasterDataComponent } from './pages/master-data/master-data.component';
-import { AgGridModule } from 'ag-grid-angular'; 
+import { AgGridModule } from 'ag-grid-angular';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DepartmentComponent } from './pages/department/department.component';
 import { DesignationComponent } from './pages/designation/designation.component';
 import { CompanyComponent } from './pages/company/company.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core'; 
+import { ReleaseDocumentComponent } from './pages/release.document/release.document.component';
 
 // Define a function to get the token
 export function tokenGetter() {
@@ -71,17 +80,27 @@ const jwtConfig: JwtModuleOptions = {
     MasterDataComponent,
     DepartmentComponent,
     DesignationComponent,
-    CompanyComponent
+    CompanyComponent,
+    ReleaseDocumentComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,  // Import ReactiveFormsModule if needed
     AppRoutingModule,
-    JwtModule.forRoot(jwtConfig), 
+    JwtModule.forRoot(jwtConfig),
     DataTablesModule,
     AgGridModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatNativeDateModule,  // Added MatNativeDateModule for Material date pickers
   ],
   providers: [
     {
@@ -89,6 +108,10 @@ const jwtConfig: JwtModuleOptions = {
       useClass: AuthInterceptor,
       multi: true,
     },
+    {
+      provide: DateAdapter,
+      useClass: NativeDateAdapter, // Optional: Custom date adapter if needed
+    }
   ],
   bootstrap: [AppComponent]
 })
