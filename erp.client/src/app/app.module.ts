@@ -27,7 +27,6 @@ import { SupplierComponent } from './pages/supplier/supplier.component';
 import { ExpenseComponent } from './pages/expense/expense.component';
 import { IncomeComponent } from './pages/income/income.component';
 import { MasterDataComponent } from './pages/master-data/master-data.component';
-import { AgGridModule } from 'ag-grid-angular';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DepartmentComponent } from './pages/department/department.component';
 import { DesignationComponent } from './pages/designation/designation.component';
@@ -42,6 +41,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { DateAdapter, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core'; 
 import { ReleaseDocumentComponent } from './pages/release.document/release.document.component';
 import { ActionRendererComponent } from './directives/action.renderer';
+import { AttendanceComponent } from './pages/attendance/attendance.component';
+import { MachineComponent } from './pages/machine/machine.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { LeaverequestComponent } from './pages/leaverequest/leaverequest.component';
+import { AttendanceReportComponent } from './pages/attandance.report/attendance.report.component';
+
 
 // Define a function to get the token
 export function tokenGetter() {
@@ -83,7 +88,12 @@ const jwtConfig: JwtModuleOptions = {
     DepartmentComponent,
     DesignationComponent,
     CompanyComponent,
-    ReleaseDocumentComponent
+    ReleaseDocumentComponent,
+    AttendanceComponent,
+    MachineComponent,
+    AttendanceReportComponent,
+    LeaverequestComponent,
+    
   ],
   imports: [
     BrowserModule,

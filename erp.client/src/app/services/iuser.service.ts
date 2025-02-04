@@ -10,6 +10,7 @@ import { ILoginService } from './ilogin.service';
   providedIn: 'root'
 })
 export class IuserService {
+  static getCurrentUser: any;
   refreshReleaseDocuments() {
     throw new Error('Method not implemented.');
   }

@@ -23,6 +23,8 @@ namespace Erp.Server.Models
         public DbSet<Designation> Designation { get; set; }
         public DbSet<Company> companies { get; set; }
         public DbSet<ReleaseDocument> releasedocuments { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Machine> Machines { get; set; }
 
 
 

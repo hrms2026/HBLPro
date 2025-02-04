@@ -101,6 +101,10 @@ builder.Services.AddTransient<IMasterData, MasterDataRepository>();
 builder.Services.AddTransient<IDesignation, DesignationRepository>();
 builder.Services.AddTransient<ICompany, CompanyRepository>();
 builder.Services.AddTransient<IReleaseDocument, ReleaseDocumentRepository>();
+builder.Services.AddTransient<IAttendance, AttendanceRepository>();
+builder.Services.AddTransient<IMachine, MachineRepository>();
+builder.Services.AddTransient<IReport, ReportRepository>();
+
 
 
 var app = builder.Build();

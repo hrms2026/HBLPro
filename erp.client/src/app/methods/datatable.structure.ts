@@ -13,13 +13,13 @@ export class DataTableStructure {
       return [];
     }
 
-    const firstItem = data[0]; // Use the first item to determine the structure
+    const firstItem = data[0]; 
     const colDefs: ColDef[] = [];
 
     for (const key in firstItem) {
       if (firstItem.hasOwnProperty(key)) {
         colDefs.push({
-          headerName: this.toTitleCase(key.replace(/_/g, ' ')), // Convert field names to headers
+          headerName: this.toTitleCase(key.replace(/_/g, ' ')),
           field: key
         });
       }
@@ -28,8 +28,7 @@ export class DataTableStructure {
     return colDefs;
   }
 
-  // Helper method to convert field names to a more readable title case
-  private toTitleCase(text: string): string {
+   private toTitleCase(text: string): string {
     return text.replace(/\w\S*/g, (txt) => {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });

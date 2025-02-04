@@ -19,6 +19,10 @@ import { DepartmentComponent } from './pages/department/department.component';
 import { DesignationComponent } from './pages/designation/designation.component';
 import { CompanyComponent } from './pages/company/company.component';
 import { ReleaseDocumentComponent } from './pages/release.document/release.document.component';
+import { AttendanceComponent } from './pages/attendance/attendance.component';
+import { MachineComponent } from './pages/machine/machine.component';
+import { LeaverequestComponent } from './pages/leaverequest/leaverequest.component';
+import { AttendanceReportComponent } from './pages/attandance.report/attendance.report.component';
 
 const routes: Routes = [
   // Redirect empty path to login
@@ -96,8 +100,25 @@ const routes: Routes = [
       {
         path :'release-document',
         component :ReleaseDocumentComponent
+      },
+      {
+        path :'attendance',
+        component :AttendanceComponent
+      },
+
+     {
+        path :'machines',
+        component : MachineComponent
+      },
+      {
+        path :'attendance-report',
+        component : AttendanceReportComponent
+      },
+      {
+        path :'leave-request',
+        component : LeaverequestComponent
       }
-     
+
     ]
   }
 ];
