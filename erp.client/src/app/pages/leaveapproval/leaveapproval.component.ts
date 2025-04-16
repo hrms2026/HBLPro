@@ -1,29 +1,28 @@
 import { Component, ViewChild } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
 import { LeaveRequest } from '../../models/leave.request.model';
-import { ColDef, GridReadyEvent } from 'ag-grid-community';
-import { ActionRendererComponent } from '../../directives/action.renderer';
+import { User } from '../../models/user.model';
+import { MasterData } from '../../models/master.data.model';
+import { RequestParms } from '../../models/requestParms';
+import { Subscription } from 'rxjs';
+import { AgGridAngular } from 'ag-grid-angular';
 import { IuserService } from '../../services/iuser.service';
 import { ILeaveRequestService } from '../../services/ileave.request.service';
 import { Router } from '@angular/router';
 import { SnackBarService } from '../../services/isnackbar.service';
-import { MasterData } from '../../models/master.data.model';
 import { IMasterDataService } from '../../services/imaster.data.service';
-import { RequestParms } from '../../models/requestParms';
-import { User } from '../../models/user.model';
-import { Subscription } from 'rxjs';
+import { ColDef, GridReadyEvent } from 'ag-grid-community';
+import { ActionRendererComponent } from '../../directives/action.renderer';
 import { DbResult } from '../../models/dbresult.model';
 import { LeaveApprovalHistory } from '../../models/leaveapprovalhistory.model';
-import { format } from 'date-fns';
 declare var $: any;
-
 @Component({
-  selector: 'app-leaverequest',
-  templateUrl: './leaverequest.component.html',
-  styleUrl: './leaverequest.component.css'
+  selector: 'app-leaveapproval',
+  templateUrl: './leaveapproval.component.html',
+  styleUrl: './leaveapproval.component.css'
 })
-export class LeaveRequestComponent {
-  pagination = true;
+export class LeaveapprovalComponent {
+
+pagination = true;
   paginationPageSize = 15;
   paginationPageSizeSelector = [15, 30, 50, 100]
   leaverequests: LeaveRequest[] = [];
@@ -34,15 +33,16 @@ export class LeaveRequestComponent {
   leavetype: MasterData[] = [];
   departments: MasterData[] = [];
   designations: MasterData[] = [];
-  leaveApprovalHistories:LeaveApprovalHistory[] = [];
-  
+  leaveApprovalHistories: any[] = []; 
+
+
   requestParms = new RequestParms();
   private subscription: Subscription = new Subscription();
 
   @ViewChild('leaverequestGrid') leaverequestGrid!: AgGridAngular;
   @ViewChild('approvalHistoryGrid') approvalHistoryGrid!: AgGridAngular;
-  
  
+
 
   constructor(private iuserService: IuserService, private ileaverequestService: ILeaveRequestService, private router: Router, private snackBarService: SnackBarService,
     private imasterDataService: IMasterDataService) {
@@ -53,22 +53,22 @@ export class LeaveRequestComponent {
 
   }
 
-
   ngOnInit(): void {
+    this.subscription.unsubscribe();
     
-    this.getLeaveRequests();
-    this.subscription.add(
-      this.ileaverequestService.refreshLeaveRequests$.subscribe(() => {
-        this.getLeaveRequests();
-      })
-    );
+
+    this.getLeaveRequestsForApprovals();
+    
     this.getUsers();
-    this.getMasterDatasByType("LeaveType", (data) => { this.leavetype = data; });
+    this.getMasterDatasByType("leavetype", (data) => { this.leavetype = data; });
     this.getMasterDatasByType("Department", (data) => { this.departments = data; });
     this.getMasterDatasByType("Designation", (data) => { this.designations = data; });
+    
   }
-  getLeaveRequests() {
-    this.ileaverequestService.getLeaveRequests().subscribe(
+  getLeaveRequestsForApprovals() {
+    this.requestParms=new RequestParms();
+    this.requestParms.id=1;
+    this.ileaverequestService.getLeaveRequestsForApprovals(this.requestParms).subscribe(
       (data: LeaveRequest[]) => {
         this.leaverequests = data;
         this.leaverequestGrid.api.applyTransaction({});
@@ -79,6 +79,7 @@ export class LeaveRequestComponent {
       }
     );
   }
+
   getMasterDatasByType(masterType: string, callback: (data: MasterData[]) => void): void {
     this.requestParms = new RequestParms();
     this.requestParms.type = masterType;
@@ -99,42 +100,34 @@ export class LeaveRequestComponent {
     { headerName: "Department", field: "lr_department_name" },
     { headerName: "Designation", field: "lr_designation_name" },
     { headerName: "Leave Type", field: "lr_leave_type_name" },
-    { headerName: "Leave From", field: "lr_leave_from", valueFormatter: (params) => {
-          return format(new Date(params.value), 'yyyy-MM-dd hh:mm:ss a');
-         }, },
-    { headerName: "Leave To", field: "lr_leave_to",valueFormatter: (params) => {
-      return format(new Date(params.value), 'yyyy-MM-dd hh:mm:ss a');
-     },},
+    { headerName: "Leave From", field: "lr_leave_from" },
+    { headerName: "Leave To", field: "lr_leave_to" },
     { headerName: "Leave Days", field: "lr_leave_days" },
     { headerName: "Contact Number1", field: "lr_contact_details" },
     { headerName: "Contact Number2", field: "lr_phone" },
     { headerName: "Address", field: "lr_address" },
     { headerName: "Remarks", field: "lr_reason" },
-    { headerName: "Status", field: "lr_status" },
-    { headerName: "Created By", field: "lr_cre_by_name" },
-    { headerName: "Created On", field: "lr_cre_date",valueFormatter: (params) => {
-      return format(new Date(params.value), 'yyyy-MM-dd hh:mm:ss a');
-     }, },
     {
-
       headerName: 'ApproveHistory', cellRenderer: 'actionRenderer', cellRendererParams:
+        {
+          name: 'ApproveHistory', action: 'onApproveHistory', cssClass: 'btn btn-success', icon: 'fa fa-check', onApproveHistory: (data: any) => this.onAction('approvehistory', data)
+        },
+      },
       {
-        name: 'ApproveHistory', action: 'onApproveHistory', cssClass: 'btn btn-success', icon: 'fa fa-check', onApproveHistory: (data: any) => this.onAction('approvehistory', data)
+      headerName: 'Approve', cellRenderer: 'actionRenderer', cellRendererParams:
+      {
+        name: 'Approve', action: 'onApprove', cssClass: 'btn btn-success', icon: 'fa fa-check circle',
+        onApprove: (data: any) => this.onAction('approve', data)
       },
     },
     {
-      headerName: 'Edit', cellRenderer: 'actionRenderer', cellRendererParams:
+      headerName: 'Reject', cellRenderer: 'actionRenderer', cellRendererParams:
       {
-        name: 'Edit', action: 'onEdit', cssClass: 'btn btn-info', icon: 'fa fa-edit', onEdit: (data: any) => this.onAction('edit', data)
-      },
-    },
-    {
-      headerName: 'Delete', cellRenderer: 'actionRenderer', cellRendererParams:
-      {
-        name: 'Delete', action: 'onDelete', cssClass: 'btn btn-danger', icon: 'fa fa-trash', onDelete: (data: any) => this.onAction('delete', data)
+        name: 'Reject', action: 'onReject', cssClass: 'btn btn-danger', icon: 'fa fa-close circle',
+        onReject: (data: any) => this.onAction('reject', data)
       },
     }
-    
+   
   ]
   apcolDefs: ColDef[] = [
     { headerName: "Id", field: "lh_id" },
@@ -152,60 +145,76 @@ export class LeaveRequestComponent {
   frameworkComponents = {
     actionRenderer: ActionRendererComponent
   };
+
   onAction(action: string, data: any) {
-    switch (action) {
-      case 'edit':
-        this.onEdit(data);
+     switch (action) {
+      case 'reject':
+        this.onReject(data);
         break;
-      case 'delete':
-        this.onDelete(data);
+      case 'approve':
+        this.onApprove(data);
         break;
         ;
-        case 'approvehistory':
+    case 'approvehistory':
           this.onApproveHistory(data);
           break;
           default:
           ;
-
-    }
+     }
 
   }
-  onApproveHistory(data:any) {
-    
-    this.ileaverequestService.getApprovalHistory(data.lr_id).subscribe(
-      (data: LeaveApprovalHistory[]) => {
-        this.leaveApprovalHistories = data;
-        this.leaverequestGrid.api.applyTransaction({});
-        $('#approvehistoryModal').modal('show');
+  onApproveHistory(data:any){
+  this.ileaverequestService.getApprovalHistory(data.lr_id).subscribe(
+        (data: LeaveApprovalHistory[]) => {
+          this.leaveApprovalHistories = data;
+          
+          this.leaverequestGrid.api.applyTransaction({});
+          $('#approvehistoryModal').modal('show');
+          
+        },
+        (error: any) => {
+          console.error('Error fetching leaverequest', error);
+        }
+      );
+  }
+
+  LeaveRequest() {
+    this.leaverequest = new LeaveRequest();
+    $('#leaverequestModal').modal('show');
+  }
+
+  onGridReady(event: GridReadyEvent) {
+  }
+
+  onApprove(data: any) {
+    this.requestParms=new RequestParms();
+
+    this.requestParms.id=data.lr_id;
+    this.requestParms.user=this.currentUser.u_id;
+
+    this.ileaverequestService.approveLeaveRequest(this.requestParms).subscribe(
+      (result: DbResult) => {
+        if (result.message === "Success") {
+          this.leaverequests = this.leaverequests.filter(lr => lr.lr_id !== data.lr_id);
+          this.leaverequestGrid.api.applyTransaction({remove: [data] });
+          alert("Successfully Approved");
+          this.ileaverequestService.refreshLeaveRequests();
+          
+        } else {
+          alert(result.message);
+        }
       },
       (error: any) => {
-        console.error('Error fetching leaverequest', error);
+        console.error('Error ', error);
       }
-    
-    );
-    
-  }
-  
+    )
 
-  openModal(data: any) {
-    $('#approvehistoryModal').modal('show');
-   
   }
-  
-  onEdit(data: any) {
-    this.ileaverequestService.getLeaveRequest(data.lr_id).subscribe(
-      (data: LeaveRequest) => {
-        this.leaverequest = data;
-        $('#leaverequestModal').modal('show');
-      },
-      (error: any) => {
-        console.error('Error fetching leaverequest', error);
-      }
-    );
-  }
-
-  onDelete(data: any) {
-    this.ileaverequestService.deleteLeaveRequest(data.lr_id).subscribe(
+  onReject(data: any) {
+    this.requestParms=new RequestParms();
+    this.requestParms.id=data.lr_id;
+    this.requestParms.user=this.currentUser.u_id;
+    this.ileaverequestService.rejectLeaveRequest(this.requestParms).subscribe(
       (result: DbResult) => {
         if (result.message === "Success") {
           this.leaverequests = this.leaverequests.filter(lr => lr.lr_id !== data.lr_id);
@@ -221,19 +230,10 @@ export class LeaveRequestComponent {
       }
     );
   }
- 
 
 
-  LeaveRequest() {
-    this.leaverequest = new LeaveRequest();
-    $('#leaverequestModal').modal('show');
-  }
-
-  onGridReady(event: GridReadyEvent) {
-  }
-
-  OnReasonChange(lr_reason_type: number) {
-    this.leaverequest.lr_leave_type = lr_reason_type
+  OnReasonChange(lr_leave_type: number) {
+    this.leaverequest.lr_leave_type = lr_leave_type
   }
 
   OnDepartmentChange(lr_department: number) {
@@ -257,44 +257,16 @@ export class LeaveRequestComponent {
         console.error('Error fetching user', error);
       }
     );
-
   }
 
 
-  createorupdateLeaveRequest() {
-    this.leaverequest.lr_cre_by = this.currentUser.u_id;
-    this.ileaverequestService.createOrUpdateLeaveRequest(this.leaverequest).subscribe(
-      (data: DbResult) => {
-
-        if (data.message == "Success") {
-          this.leaverequest = new LeaveRequest();
-          this.ileaverequestService.refreshLeaveRequests();
-          $('#leaverequestModal').modal('hide');
-
-
-          this.snackBarService.showSuccess("Leave request submitted successfully.");
-        } else {
-          this.snackBarService.showError(data.message || "Failed to submit request.");
-        }
-      },
-      (error: any) => {
-        this.snackBarService.showError("Failed to process leave request.");
-      }
-    );
+ 
+    
 
 
 
 
 
 
-  }
-
-
-
-
-
-
-
-
-
+  
 }

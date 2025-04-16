@@ -1,0 +1,70 @@
+<div class="right_col" role="main" style="min-height: 99vh;">
+    <div class="x_panel">
+<div class="salary-generation-container">
+    <h2>Salary Generation</h2>
+    
+    <div class="filters">
+      <label for="sg_company">Branch:</label>
+        <select appSelect2  id="sg_company" class="form-control"
+      [(ngModel)]="salarygeneration.sg_company"  name="sg_company" (selectionChanged)="OnCompanyNameChange($event);">
+        <option value="1">select your company</option>
+        <option *ngFor="let c of companies" [value]="c.c_id">{{ c.c_name }}</option>
+      </select>
+      
+      <div class="filter-group">
+        <label for="sg_month">Select Month:</label>
+        <input type="month" 
+               id="sg_month"
+               class="form-control"
+               [(ngModel)]="salarygeneration.sg_year_month" 
+               name="sg_month"
+               min="2020-01"
+               max="{{ currentYear }}-{{ currentMonth }}"
+               (change)="onMonthChange()">
+      </div>
+
+      
+      <button (click)="viewSalary()">View</button>
+      <button (click)="generateSalary()">Generate Salary</button>
+      <button (click)="convertToExcel()">Convert Excel</button>
+    </div>
+   </div>
+    <table class="salary-table">
+     
+      <tbody>
+        <tr *ngFor="let salary of salaryData">
+          <td>{{ salary.slNo }}</td>
+          <td>{{ salary.sg_employee_Name }}</td>
+          <td>{{ salary.sg_personal_Id }}</td>
+          <td>{{ salary.sg_employee_Code }}</td>
+          <td>{{ salary.sg_account_No }}</td>
+          <td>{{ salary.sg_present_Salary }}</td>
+          <td>{{ salary.sg_attendance_Remarks }}</td>
+          <td>{{ salary.sg_basic_Salary }}</td>
+          <td>{{ salary.sg_variable_Salary }}</td>
+          <td>{{ salary.sg_cash_Part }}</td>
+          <td>{{ salary.sg_total_Salary }}</td>
+          <td>{{ salary.sg_due_To }}</td>
+          <td>{{ salary.sg_due_From }}</td>
+          <td>{{ salary.sg_uae_Exchange_Transfer }}</td>
+          <td>{{ salary.sg_variable_Transfer }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="x_panel">
+    <div class="x_content" style="display: block;">
+        <ag-grid-angular #vatReportGrid 
+            class="ag-theme-quartz ag-theme-acmecorp"
+            style="height: 100%; width: 100%;" [rowData]="salarygenerations" [columnDefs]="colDefs"
+            [defaultColDef]="defaultColDef"   [enableCellTextSelection]="true"  [domLayout]="domLayout"
+            [components]="frameworkComponents" [pagination]="true"
+            [paginationPageSize]="paginationPageSize15" [paginationPageSizeSelector]="paginationPageSizeSelector15"
+            (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+    </div>
+</div>
+  </div>
+  
+ 

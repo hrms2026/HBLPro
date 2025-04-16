@@ -104,6 +104,12 @@ builder.Services.AddTransient<IReleaseDocument, ReleaseDocumentRepository>();
 builder.Services.AddTransient<IAttendance, AttendanceRepository>();
 builder.Services.AddTransient<IMachine, MachineRepository>();
 builder.Services.AddTransient<IReport, ReportRepository>();
+builder.Services.AddTransient<ILeaveRequest, LeaveRequestRepository>();
+builder.Services.AddTransient<ISalarygeneration,SalarygenerationRepository>();
+builder.Services.AddTransient<IHolidaySchedule,HolidayScheduleRepository>();
+
+
+
 
 
 

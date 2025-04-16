@@ -59,6 +59,10 @@ export class User {
   u_present_salary: number;
   u_benefits_after: number;
   u_benefits_after_name: string;
+  u_c_id:number;
+  u_c_name:string;
+  u_ds_id:number;
+  u_ds_name:string;
 
   constructor() {
     this.u_id = 0;
@@ -121,7 +125,10 @@ export class User {
     this.u_present_salary = 0;
     this.u_benefits_after=0;
     this.u_benefits_after_name='';
-    
+    this.u_c_id=0;
+    this.u_c_name='';
+    this.u_ds_id=0;
+    this.u_ds_name='';
 
   }
 

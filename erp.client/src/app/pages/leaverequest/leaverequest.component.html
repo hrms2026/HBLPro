@@ -1,1 +1,167 @@
-<p>leaverequest works!</p>
+<div class="right_col" supplier="main" style="min-height: 99vh;">
+    <div class="x_panel">
+        <div class="x_title">
+            <button class="btn btn-success" (click)="LeaveRequest()"><i class="fa fa-plus"></i> LEAVE APPLICATION FORM </button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <div class="clearfix"></div>
+
+          
+        </div>
+        
+        <div class="x_content" style="display: block;">
+            
+            <ag-grid-angular #leaverequestGrid class="ag-theme-quartz ag-theme-acmecorp" style="height: 80vh; width: 100%;"
+                [rowData]="leaverequests" [columnDefs]="colDefs" [pagination]="pagination" [defaultColDef]="defaultColDef"
+                [components]="frameworkComponents" [paginationPageSize]="paginationPageSize"
+                [paginationPageSizeSelector]="paginationPageSizeSelector"
+                (gridReady)="onGridReady($event)"></ag-grid-angular>
+             
+        </div>
+        
+    </div>
+    
+</div>
+
+ 
+<div class="modal fade" id="approvehistoryModal" role="dialog" aria-labelledby="approvehistoryFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Approval History</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ag-grid-angular #approvalHistoryGrid class="ag-theme-quartz ag-theme-acmecorp" style="height: 80vh; width: 100%;"
+                [rowData]="leaveApprovalHistories" [columnDefs]="apcolDefs" [pagination]="pagination" [defaultColDef]="defaultColDef"
+                [components]="frameworkComponents" [paginationPageSize]="paginationPageSize"
+                [paginationPageSizeSelector]="paginationPageSizeSelector"
+                (gridReady)="onGridReady($event)"></ag-grid-angular>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" (click)="onApproveHistory(leaverequest.lr_id)"></button>
+                <button class="btn btn-secondary" data-dismiss="modal"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="leaverequestModal" tabindex="-1" role="dialog" aria-labelledby="leaverequestFormModalLabel">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="border-right"></span>
+            <h2 class="leaverequset" id="leaverequestModal">
+                <p class="text-success"><b></b></p>
+            </h2>
+            <h2 class="leaverequest text-sucess" id="leaverequestModalLongTitle">Add Your Leave</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <h5><b>Personal Information</b></h5>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="lr_user">Leave For</label>
+                        <select id="lr_user" class="form-control" [(ngModel)]="leaverequest.lr_user">
+                            <option>Select User</option>
+                            <option *ngFor="let u of users" [value]="u.u_id">{{ u.u_name }}</option>
+                        </select>
+                    </div>
+                <div class="col-md-3 form-group">
+                    <label for="lr_department"> <b> Department </b></label>
+                    <select appSelect2  #lr_department id="lr_department" class="form-control" [(ngModel)]="leaverequest.lr_department"
+                        name="lr_department" required (selectionChanged)="OnDepartmentChange($event);">
+                        <option value="">Select an option</option>
+                    <option *ngFor="let d of departments" [value]="d.md_id">{{ d.md_name }}</option>
+                  </select>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="lr_designation"> <b> Designation </b></label>
+                    <select appSelect2  #lr_designation id="lr_designation" class="form-control" [(ngModel)]="leaverequest.lr_designation"
+                        name="lr_designation" required (selectionChanged)="OnDesignationChange($event);">
+                        <option value="">Select an option</option>
+                    <option *ngFor="let e of designations" [value]="e.md_id">{{ e.md_name }}</option>
+                  </select>
+                </div> 
+                </div>  
+                   <h5><b>Leave Details</b></h5>
+                   <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lr_leave_type">Leave Type</label>
+                      <select appSelect2 #lr_leave_type id="lr_leave_type" class="form-control" [(ngModel)]="leaverequest.lr_leave_type"
+                        name="lr_leave_type" required (selectionChanged)="OnReasonChange($event);">
+                        <option *ngFor="let r of leavetype" [value]="r.md_id">{{ r.md_name }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-md-3 form-group">
+                    <label for="lr_leave_from"><b> Leave From  </b></label>
+                    <input type="date" id="lr_leave_from" class="form-control" [(ngModel)]="leaverequest.lr_leave_from" name="lr_leave_from">
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="lr_leave_to"><b> Leave To  </b></label>
+                    <input type="date" id="lr_leave_to" class="form-control" [(ngModel)]="leaverequest.lr_leave_to" name="lr_leave_to">
+                </div>
+                <div class="col-md-3 form-group">
+                    <label for="leave_days">Leave Days</label>
+                    <input type="text" id="leave_days" class="form-control" [(ngModel)]="leaverequest.lr_leave_days" name="lr_leave_days" readonly>
+                </div>
+            </div>
+                <h5><b>Contact Detail During Leave</b></h5>
+                <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="lr_contact_details"><b> Contact Number 1 </b></label>
+                    <input type="text" id="lr_contact_details" class="form-control" [(ngModel)]="leaverequest.lr_contact_details"
+                        name="lr_contact_details" >
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="lr_phone"><b> Contact Number 2 </b></label>
+                    <input type="text" id="lr_phone" class="form-control" [(ngModel)]="leaverequest.lr_phone"
+                        name="lr_phone" >
+                </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lr_address"><b> Address </b></label>
+                    <textarea id="lr_address" class="form-control" [(ngModel)]="leaverequest.lr_address"
+                        name="lr_address"></textarea>
+                
+                </div>
+                <h5><b>Other Details</b></h5>
+
+                <div class="col_md_12 form-group">
+                    <label for="lr_reason"><b> Remarks </b></label>
+                    <input type="text" id="lr_reason" class="form-control" [(ngModel)]="leaverequest.lr_reason"
+                        name="lr_reason">
+                </div>
+                  
+               
+            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" (click)="createorupdateLeaveRequest()">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   

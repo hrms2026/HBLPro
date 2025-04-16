@@ -367,10 +367,54 @@
                 </div>
               </div>
             </div>
+          
+          </mat-tab>
+        
+      
+                
+          <mat-tab label="Company Information">
+            <br />
+            <div class="container-fluid">
+              <div class="row">
+               
+                <div class="col-md-6 form-group">
+                  <label for="u_c_id">Company</label>
+                  <select
+                    appSelect2
+                    id="u_c_id"
+                    class="form-control"
+                    [(ngModel)]="user.u_c_id"
+                    name="u_c_id"
+                    required
+                    (selectionChanged)="OnCompanyChange($event)"
+                  >
+                    <option value="">Select Company</option>
+                    <option *ngFor="let Company of companies" [value]="Company.c_id">{{ Company.c_name }}</option>
+                  </select>
+                </div>
+        
+               
+                <div class="col-md-6 form-group">
+                  <label for="u_ds_id">Designation</label>
+                  <select
+                    appSelect2
+                    id="u_ds_id"
+                    class="form-control"
+                    [(ngModel)]="user.u_ds_id"
+                    name="u_ds_id"
+                    required
+                    (selectionChanged)="OnDesignationChange($event)"
+                  >
+                    <option value="">Select Designation</option>
+                    <option *ngFor="let Designations of designations" [value]="Designations.ds_id">{{ Designations.ds_name }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </mat-tab>
         </mat-tab-group>
 
-      </div>
+      
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" (click)="createOrUpdateUser()">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

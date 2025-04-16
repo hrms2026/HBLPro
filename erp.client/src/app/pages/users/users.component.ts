@@ -16,6 +16,8 @@ import { RequestParms } from '../../models/requestParms';
 import { IMasterDataService } from '../../services/imaster.data.service';
 import { Company } from '../../models/company.model';
 import { ICompanyService } from '../../services/icompany.service';
+import { Designation } from '../../models/desigation.model';
+import { IDesignationService } from '../../services/idesignation.service';
 declare var $: any;
 
 @Component({
@@ -45,14 +47,17 @@ export class UsersComponent implements OnInit {
   paymentmethods:MasterData [] =[];
   benifitsafter:MasterData [] =[];
   visaFrom:Company[]=[];
+  companies:Company[]=[];
+  designations:Designation[]=[];
   isEditing: boolean = false;
   private subscription: Subscription = new Subscription();
   @ViewChild('userGrid') userGrid!: AgGridAngular;
+  
 
  
 
   constructor(private IuserService: IuserService, private iroleService: IroleService, private icompanyService: ICompanyService, 
-    private gridService: GridService, private iuserService: IuserService, private router: Router,
+    private gridService: GridService, private iuserService: IuserService, private router: Router,private idesignationService: IDesignationService,
     private imasterDataService: IMasterDataService
   ) {
     {
@@ -65,6 +70,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     this.loadRoles();
+    this.getDesignations();
     this.subscription.add(
       this.iuserService.refreshUsers$.subscribe(() => {
         this.getUsers();
@@ -118,12 +124,25 @@ export class UsersComponent implements OnInit {
       this.icompanyService.getCompanies().subscribe(
         (data: Company[]) => {
           this.visaFrom = data;
+          this.companies = data;
         },
         (error: any) => {
           console.error('Error fetching companies', error);
         }
       );
     }
+     getDesignations(){
+        this.idesignationService.getDesignations().subscribe(
+          (data: Designation[]) => {
+            this.designations = data;
+            
+           
+          },
+          (error: any) => {
+            console.error('Error fetching designation', error);
+          }
+        );
+      }
 
   colDefs: ColDef[] = [
     { headerName: "Id", field: "u_id" },
@@ -350,6 +369,12 @@ export class UsersComponent implements OnInit {
     this.user.u_religion=u_religion;
   }
 
+  OnCompanyChange(u_c_id:number){
+    this.user.u_c_id=u_c_id;
+  }
+  OnDesignationChange(u_ds_id:number){
+    this.user.u_ds_id=u_ds_id;
+  }
   setSelect2Fields(){
    
     $("#u_role_id").select2().val(this.user.u_role_id).trigger("change");
@@ -361,6 +386,10 @@ export class UsersComponent implements OnInit {
     $("#u_uae_exchange_branch").select2().val(this.user.u_uae_exchange_branch).trigger("change");
     $("#u_benefits_after").select2().val(this.user.u_benefits_after).trigger("change");
     $("#u_religion").select2().val(this.user.u_religion).trigger("change");
+    $("#u_c_id").select2().val(this.user.u_c_id).trigger("change");
+    $("#u_ds_id").select2().val(this.user.u_ds_id).trigger("change");
+ 
+ 
  
   }
 

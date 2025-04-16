@@ -66,7 +66,9 @@ namespace Erp.Server.Repository
             var u_over_time = new SqlParameter("u_over_time", user.u_over_time + "");
             var u_present_salary = new SqlParameter("u_present_salary", user.u_present_salary + "");
             var u_benefits_after = new SqlParameter("u_benefits_after", user.u_benefits_after + "");
-          
+            var u_c_id = new SqlParameter("u_c_id", user.u_c_id + "");
+            var u_ds_id = new SqlParameter("u_ds_id", user.u_ds_id + "");
+
 
 
 
@@ -76,14 +78,14 @@ namespace Erp.Server.Repository
                 "@u_marital_status,@u_religion,@u_qualification,@u_specialized_in,@u_is_admin,@u_active_yn,@u_role_id,@u_cre_by,@u_visa_from," +
                 "@u_file_no,@u_visa_uid,@u_visa_issue_date,@u_visa_expiry_date,@u_labour_id,@u_labour_issue_date,@u_labour_expiry_date,@u_emid,@u_emid_issue_date,@u_emid_expiry_date," +
                 "@u_passport_no,@u_passport_issue_date,@u_passport_expiry_date,@u_personal_id,@u_payment_method,@u_account_no,@u_uae_exchange_branch," +
-                "@u_basic_salary,@u_allowance,@u_Over_time,@u_present_salary,@u_benefits_after;",
+                "@u_basic_salary,@u_allowance,@u_Over_time,@u_present_salary,@u_benefits_after,@u_c_id,@u_ds_id;",
                 u_id,u_name, u_username,u_password,u_mother_name,u_father_name,u_contact_person,u_nationality,
                 u_date_of_birth,u_gender,u_emp_code,u_date_of_join, u_contact_email,u_contact_mobile, u_contact_home,
                 u_contact_office, u_contact_address, u_contact_sim_required, u_marital_status,u_religion,u_qualification,u_specialized_in,
                 u_is_admin, u_active_yn, u_role_id,u_cre_by,u_visa_from, u_file_no, u_visa_uid, u_visa_issue_date, 
                 u_visa_expiry_date,u_labour_id,u_labour_issue_date,u_labour_expiry_date,u_emid,u_emid_issue_date,u_emid_expiry_date,u_passport_no,u_passport_issue_date, u_passport_expiry_date,
                 u_personal_id,u_payment_method,u_account_no, u_uae_exchange_branch,u_basic_salary,u_allowance,u_over_time,
-                u_present_salary,u_benefits_after).ToList().FirstOrDefault() ?? new DbResult();
+                u_present_salary,u_benefits_after,u_c_id,u_ds_id).ToList().FirstOrDefault() ?? new DbResult();
             return dbresult;
         }
 

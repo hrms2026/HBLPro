@@ -5,6 +5,7 @@ import { User } from '../models/user.model';
 import { DbResult } from '../models/dbresult.model';
 import { environment } from '../../environments/environment';
 import { ILoginService } from './ilogin.service';
+import { Designation } from '../models/desigation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,10 @@ export class IuserService {
     const headers = this.getHttpHeaders();
     return this.http.post<User>(`${this.apiUrl}/getUser`, id, { headers });  
   }
+
+  getDesignations(): Observable<Designation[]> {
+      return this.http.post<Designation[]>(this.apiUrl + "/getDesignations", {});  
+    }
 
   deleteUser(id: number): Observable<DbResult> {
     const headers = this.getHttpHeaders();

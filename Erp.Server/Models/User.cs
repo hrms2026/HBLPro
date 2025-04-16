@@ -63,6 +63,9 @@ namespace Erp.Server.Models
         [Display(Name = "office")]
         public string? u_contact_office { get; set; } = string.Empty;
 
+        [Display(Name = "Address")]
+        public string? u_contact_address{ get; set; } = string.Empty;
+
         [Display(Name = "sim")]
         public string? u_contact_sim_required { get; set; } = string.Empty;
 
@@ -89,8 +92,11 @@ namespace Erp.Server.Models
         public string? u_specialized_in { get; set; } = string.Empty;
 
 
-        [Display(Name = "address")]
-        public string? u_contact_address { get; set; } = string.Empty;
+        [Display(Name = "is Admin")]
+        public string? u_is_admin { get; set; } = "N";
+
+        [Display(Name = "Active")]
+        public string? u_active_yn { get; set; } = "Y";
 
         [Display(Name = "Role Id")]
         public int? u_role_id { get; set; }
@@ -98,13 +104,7 @@ namespace Erp.Server.Models
         [Display(Name = "Role Id")]
         public string? u_role_name { get; set; } = string.Empty;
 
-        [Display(Name = "is Admin")]
-        public string? u_is_admin { get; set; } = "N";
-
-        [Display(Name = "Active")]
-        public string? u_active_yn { get; set; } = "Y";
-
-
+     
         [Display(Name = "Created By")]
         public int? u_cre_by { get; set; }
 
@@ -200,6 +200,19 @@ namespace Erp.Server.Models
 
         [Display(Name = "benefits after")]
         public string? u_benefits_after_name { get; set; } = string.Empty;
+
+        [Display(Name = "company")]
+        public int? u_c_id { get; set; } = 0;
+
+        [Display(Name = "company")]
+        public string? u_c_name { get; set; } = string.Empty;
+
+        [Display(Name = "Designation")]
+        public int? u_ds_id { get; set; } = 0;
+
+        [Display(Name = "Designation")]
+        public string? u_ds_name { get; set; } = string.Empty;
+
 
     }
 }

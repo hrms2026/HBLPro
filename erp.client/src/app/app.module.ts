@@ -44,8 +44,12 @@ import { ActionRendererComponent } from './directives/action.renderer';
 import { AttendanceComponent } from './pages/attendance/attendance.component';
 import { MachineComponent } from './pages/machine/machine.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { LeaverequestComponent } from './pages/leaverequest/leaverequest.component';
 import { AttendanceReportComponent } from './pages/attandance.report/attendance.report.component';
+import { LeaveRequestComponent } from './pages/leaverequest/leaverequest.component';
+import { LeaveapprovalComponent } from './pages/leaveapproval/leaveapproval.component';
+import { SalarygenerationComponent } from './pages/salarygeneration/salarygeneration.component';
+import { HolidayScheduleComponent } from './pages/holiday.schedule/holiday.schedule.component';
+
 
 
 // Define a function to get the token
@@ -92,7 +96,11 @@ const jwtConfig: JwtModuleOptions = {
     AttendanceComponent,
     MachineComponent,
     AttendanceReportComponent,
-    LeaverequestComponent,
+    LeaveRequestComponent,
+    LeaveapprovalComponent,
+    SalarygenerationComponent,
+    HolidayScheduleComponent,
+  
     
   ],
   imports: [

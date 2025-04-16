@@ -25,7 +25,9 @@ namespace Erp.Server.Models
         public DbSet<ReleaseDocument> releasedocuments { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Machine> Machines { get; set; }
-
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public DbSet<LeaveApprovalHistory> LeaveApprovalHistory { get; set; }
+        public DbSet<HolidaySchedule> HolidaySchedules { get; set; }
 
 
     }
