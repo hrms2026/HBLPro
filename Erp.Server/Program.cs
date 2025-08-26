@@ -98,6 +98,7 @@ builder.Services.AddTransient<IExpense, ExpenseRepository>();
 builder.Services.AddTransient<IIncome, IncomeRepository>();
 builder.Services.AddTransient<ICategory, CategoryRepository>();
 builder.Services.AddTransient<IMasterData, MasterDataRepository>();
+builder.Services.AddTransient<IDepartment, DepartmentRepository>();
 builder.Services.AddTransient<IDesignation, DesignationRepository>();
 builder.Services.AddTransient<ICompany, CompanyRepository>();
 builder.Services.AddTransient<IReleaseDocument, ReleaseDocumentRepository>();
@@ -105,8 +106,19 @@ builder.Services.AddTransient<IAttendance, AttendanceRepository>();
 builder.Services.AddTransient<IMachine, MachineRepository>();
 builder.Services.AddTransient<IReport, ReportRepository>();
 builder.Services.AddTransient<ILeaveRequest, LeaveRequestRepository>();
+builder.Services.AddTransient<IHolidaySchedule, HolidayScheduleRepository>();
 builder.Services.AddTransient<ISalarygeneration,SalarygenerationRepository>();
-builder.Services.AddTransient<IHolidaySchedule,HolidayScheduleRepository>();
+builder.Services.AddTransient<IPromotion,PromotionRepository>();
+builder.Services.AddTransient<ILoan,LoanRepository>();
+builder.Services.AddTransient<IAttachments, AttachmentsRepository>();
+builder.Services.AddTransient<ILoanPayment, LoanPaymentRepository>();
+builder.Services.AddTransient<IReportLoan, ReportLoanRepository>();
+builder.Services.AddTransient<IIncentive,IncentiveRepository>();
+
+
+
+
+
 
 
 

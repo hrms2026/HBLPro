@@ -15,11 +15,13 @@ namespace Erp.Server.Repository
 
         public DbResult createOrUpdateHolidaySchedule(HolidaySchedule holidaySchedule)
         {
+
+
             var hs_id = new SqlParameter("hs_id", holidaySchedule.hs_id + "");
             var hs_company_id = new SqlParameter("hs_company_id", holidaySchedule.hs_company_id + "");
             var hs_reason = new SqlParameter("hs_reason", holidaySchedule.hs_reason + "");
-            var hs_leave_from = new SqlParameter("hs_leave_from",holidaySchedule.hs_leave_from + "");
-            var hs_leave_to = new SqlParameter("hs_leave_to",holidaySchedule.hs_leave_to + "");
+            var hs_leave_from = new SqlParameter("hs_leave_from", holidaySchedule.hs_leave_from.ToString("yyyy-MM-dd") + "");
+            var hs_leave_to = new SqlParameter("hs_leave_to", holidaySchedule.hs_leave_to.ToString("yyyy-MM-dd") + "");
             var hs_cre_by = new SqlParameter("hs_cre_by", holidaySchedule.hs_cre_by + "");
 
           

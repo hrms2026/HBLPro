@@ -17,8 +17,6 @@ import { HolidaySchedule } from '../models/holiday.schedule.model';
 })
 export class IHolidayScheduleService {
 
-
-
   private apiUrl = `${environment.serverHostAddress}/api/HolidaySchedule`;
   private refreshHolidayScheduleSubject = new Subject<void>();
 

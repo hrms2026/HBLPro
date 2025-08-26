@@ -15,5 +15,6 @@ export class IReportService {
   getAttandanceReport(reportParms: ReportParm): Observable<any[]> {
     return this.http.post<any[]>(`${this.apiUrl}/getAttandanceReport`, reportParms);  
   }
+   
  
 }

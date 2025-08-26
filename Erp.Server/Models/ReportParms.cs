@@ -12,6 +12,7 @@ namespace Erp.Server.Models
         public string? rp_date_range { get; set; } = string.Empty;
         public int? rp_user { get; set; }
 
+        public int? rp_company_id { get; set; }
 
     }
 

@@ -1,0 +1,154 @@
+<div class="right_col" style="min-height: 99vh;">
+  <div class="x_panel">
+    <div class="x_title">
+      <button class="btn btn-warning" (click)="createLoan()"><i class="fa fa-plus"></i> Create</button>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content" style="display: block;">
+      <div class="row">
+        <div class="col-md-12">
+
+          <ag-grid-angular #loanGrid class="ag-theme-quartz ag-theme-acmecorp" style="height: 80vh; width: 100%;"
+            [rowData]="loans" [columnDefs]="colDefs" [pagination]="pagination" [defaultColDef]="defaultColDef"
+            [components]="frameworkComponents" [paginationPageSize]="paginationPageSize" [domLayout]="domLayout"
+            [paginationPageSizeSelector]="paginationPageSizeSelector"
+            (gridReady)="onGridReady($event)"></ag-grid-angular>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="loanModal" tabindex="-1" role="dialog" aria-labelledby="loanModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loanModalTitle">Loan Request</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="container-fluid">
+
+        <!-- User Dropdown -->
+        <div class="col-md-12 form-group">
+          <label for="l_user" style="color: #3f345e; font-weight: bold;">Select User</label>
+          <select id="l_user" class="form-control" [(ngModel)]="loan.l_user" (change)="onUserSelect($event)">
+            <option *ngFor="let user of users" [value]="user.u_id">{{ user.u_name }}</option>
+          </select>
+        </div>
+
+        <!-- Company Dropdown -->
+        <div class="col-md-12 form-group">
+          <label for="l_company_id" style="color: #3f345e; font-weight: bold;">Company</label>
+          <select id="l_company_id" class="form-control" [(ngModel)]="loan.l_company_id" disabled>
+            <option *ngFor="let company of companies" [value]="company.c_id">{{ company.c_name }}</option>
+          </select>
+        </div>
+
+        <!-- Optional: Show selected user info -->
+        <div *ngIf="selectedUser">
+          <h5>User Info:</h5>
+          <p><strong>Company:</strong> {{ selectedUser.u_c_name }}</p>
+
+        </div>
+
+      </div>
+      <div class="container-fluid">
+        <div class="col-md-12 form-group">
+          <label for="l_amount" style="color: #3f345e; font-weight: bold;">Amount:</label>
+          <input type="decimal" id="l_amount" class="form-control" [(ngModel)]="this.loan.l_amount" name="l_amount">
+        </div>
+
+        <div class="col-md-12 form-group">
+          <label for="l_reason" style="color: #3f345e; font-weight: bold;">Reason:</label>
+          <input type="text" id="l_reason" class="form-control" [(ngModel)]="this.loan.l_reason" name="l_reason">
+        </div>
+
+        <div class="col-md-12 form-group">
+          <label for="l_type" style="color: #3f345e; font-weight: bold;">Loan Type:</label>
+          <select appSelect2 id="l_type" class="form-control" [(ngModel)]="loan.l_type" name="l_type"
+            (selectionChanged)="onLoanTypeChange($event)">
+            <option value="">Select loan type</option>
+            <option *ngFor="let t of loanes" [value]="t.md_id">{{ t.md_name }}</option>
+          </select>
+        </div>
+
+
+        <div class="col-md-12 form-group" *ngIf="isCuttingAmountEnabled">
+          <label for="cuttingAmount" style="color: #3f345e; font-weight: bold;">Cutting Amount:</label>
+          <input type="number" id="cuttingAmount" class="form-control" placeholder="Enter Cutting Amount"
+            [(ngModel)]="loan.l_cutting_amount" name="company_id">
+        </div>
+        <div class="col-md-12 form-group">
+          <mat-form-field appearance="fill">
+            <mat-label> Date</mat-label>
+            <input matInput [matDatepicker]="datePicker" [(ngModel)]="loan.l_issue_date" name="l_issue_date">
+            <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="createOrUpdateLoan()">Submit</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="paymenthistoryModal" role="dialog" aria-labelledby="paymenthistoryModal" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>payment History</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" *ngIf="this.loan.l_balance_amount!=0">
+          <div class="col-md-3">
+            <label for="lh_amount">Amount</label>
+            <input class="form-control" name="lh_amount" id="lh_amount" [(ngModel)]="loanpayment.lh_amount"
+              type="number" />
+          </div>
+          <div class="col-md-7" >
+              <label for="lh_remarks">Remarks</label>
+            <textarea class="form-control"  name="lh_remark" id="lh_remark" [(ngModel)]="loanpayment.lh_remark" rows="1"></textarea>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-success mt-4" (click)="CreateOrUpdateLoanPayment()">Pay</button>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-12">
+            <ag-grid-angular #paymentGrid class="ag-theme-quartz ag-theme-acmecorp" style="height: 100%; width: 100%;"
+              [rowData]="paymentHistories" [columnDefs]="apcolDefs" [pagination]="pagination" [domLayout]="domLayout"
+              [defaultColDef]="defaultColDef" [components]="frameworkComponents"
+              [paginationPageSize]="paginationPageSize" [paginationPageSizeSelector]="paginationPageSizeSelector"
+              (gridReady)="onGridReady($event)"></ag-grid-angular>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" *ngIf="selectedLoanId !== null" (click)="onpaymentHistory(loan.l_id)">
+          Reload Payment History
+        </button>
+        <button class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

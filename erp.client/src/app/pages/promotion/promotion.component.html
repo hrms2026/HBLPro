@@ -1,0 +1,116 @@
+<div class="right_col" supplier="main" style="min-height: 99vh;">
+    <div class="x_panel">
+      <div class="x_title">
+        <button class="btn btn-warning" (click)="CreatePromotion()"><i class="fa fa-plus"></i> Create</button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content" style="display: block;">
+  
+        <ag-grid-angular #promotionGrid class="ag-theme-quartz ag-theme-acmecorp" style="height: 80vh; width: 100%;"
+          [rowData]="promotions" [columnDefs]="colDefs" [pagination]="pagination" [defaultColDef]="defaultColDef"
+          [components]="frameworkComponents" [paginationPageSize]="paginationPageSize"
+          [paginationPageSizeSelector]="paginationPageSizeSelector" (gridReady)="onGridReady($event)"></ag-grid-angular>
+  
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="promotionModal" tabindex="-1" role="dialog"
+  aria-labelledby="promotionModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="border-right"></span>
+        <h5 class="create-holiday" id="promotionModalTitle">
+          <p class="text-success"><b>PROMOTION</b></p>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="col-md-12 form-group">
+            <label for="p_user" style="color: #3f345e; font-weight: bold;">User</label>
+            <select appSelect2 id="p_user" class="form-control" [(ngModel)]="promotion.p_user" (selectionChanged)="onUserChange($event)">
+              <option *ngFor="let user of users" [value]="user.u_id">{{ user.u_name }}</option>
+            </select>
+          </div>
+          <br/>
+        
+          <div class="col-md-12" *ngIf="this.user.u_id!=0">
+            <h1>Current Info</h1>
+            <table class="table table-hover text-nowrap">
+              <tr>
+                <th>Company</th>
+                <th>Designation</th>
+                <th>Basic Salary</th>
+                <th>Allowance</th>
+                <th>Total Salary</th>
+              </tr>
+              <tr>
+                <td> {{ this.user.u_c_name }} </td>
+                <td> {{ this.user.u_ds_name }} </td>
+                <td> {{ this.user.u_basic_salary }} </td>
+                <td> {{ this.user.u_allowance }} </td>
+                <td> {{ this.user.u_basic_salary+this.user.u_allowance  }} </td>
+              </tr>
+            </table>
+          </div>
+          <hr/>
+          <div class="col-md-12 form-group">
+            <label for="p_company_id" style="color: #3f345e; font-weight: bold;">Company:</label>
+            <select appSelect2 id="p_company_id" class="form-control"
+              name="p_company_id" (selectionChanged)="onCompanyNameChange($event)">
+              <option value="">Select your company</option>
+              <option *ngFor="let c of companies" [value]="c.c_id">{{ c.c_name }}</option>
+            </select>
+          </div>
+
+          <div class="col-md-12 form-group">
+            <label for="p_designation" style="color: #3f345e; font-weight: bold;">Designation</label>
+            <select appSelect2 id=p_designation class="form-control" [(ngModel)]="promotion.p_designation" (selectionChanged)="onDesignationChange($event)">
+              <option *ngFor="let Designations of designations" [value]="Designations.ds_id">{{ Designations.ds_name }}</option>
+            </select>
+          </div>
+
+          <div class="col-md-12 form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Promotion Date</mat-label>
+              <input matInput [matDatepicker]="datePicker" [(ngModel)]="promotion.p_date" name="p_date">
+              <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
+              <mat-datepicker #datePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label>Basic Salary</label>
+              <input type="number" class="form-control" [(ngModel)]="promotion.p_basic_salary">
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Allowance</label>
+              <input type="number" class="form-control" [(ngModel)]="promotion.p_allowance">
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Cash Part</label>
+              <input type="number" class="form-control" [(ngModel)]="promotion.p_cash_part">
+            </div>
+            <div class="col-md-6 form-group">
+              <label>Current Salary</label>
+              <input type="number" class="form-control" [(ngModel)]="promotion.p_current_salary">
+            </div>
+          </div>
+
+          <hr>
+
+          
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="createOrUpdatePromotion()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

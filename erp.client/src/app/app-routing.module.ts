@@ -21,18 +21,23 @@ import { CompanyComponent } from './pages/company/company.component';
 import { ReleaseDocumentComponent } from './pages/release.document/release.document.component';
 import { AttendanceComponent } from './pages/attendance/attendance.component';
 import { MachineComponent } from './pages/machine/machine.component';
-import { AttendanceReportComponent } from './pages/attandance.report/attendance.report.component';
 import { LeaveRequestComponent } from './pages/leaverequest/leaverequest.component';
 import { LeaveapprovalComponent } from './pages/leaveapproval/leaveapproval.component';
 import { SalarygenerationComponent } from './pages/salarygeneration/salarygeneration.component';
 import { HolidayScheduleComponent } from './pages/holiday.schedule/holiday.schedule.component';
+import { PromotionComponent } from './pages/promotion/promotion.component';
+import { LoanComponent } from './pages/loan/loan.component';  
+import { AttachmentsComponent } from './pages/attachments/attachments.component';
+import { LoanreportComponent } from './pages/loanreport/loanreport.component';
+import { IncentiveComponent } from './pages/incentive/incentive.component';
+import { AttendanceReportComponent } from './pages/attandance.report/attendance.report.component';
 
 
 const routes: Routes = [
   // Redirect empty path to login
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   // Define your login route
-  {  
+  {
     path: 'login',
     component: LoginComponent
   },
@@ -51,93 +56,109 @@ const routes: Routes = [
       },
       {
         path: 'users',
-        component : UsersComponent
+        component: UsersComponent
       },
       {
         path: 'roles',
-        component : RoleComponent
+        component: RoleComponent
       },
       {
         path: 'purchaseOrder',
-        component : PurchaseOrderComponent
+        component: PurchaseOrderComponent
       },
       {
         path: 'menus',
-        component : MenuComponent
+        component: MenuComponent
       },
       {
         path: 'menuallocation',
-        component : MenuAllocationComponent
+        component: MenuAllocationComponent
       },
       {
         path: 'customers',
-        component : CustomerComponent
+        component: CustomerComponent
       },
       {
-        path : 'suppliers',
-        component : SupplierComponent
+        path: 'suppliers',
+        component: SupplierComponent
       },
       {
-        path : 'incomes',
-        component : IncomeComponent
+        path: 'incomes',
+        component: IncomeComponent
       },
       {
-        path : 'expenses',
-        component : ExpenseComponent
+        path: 'expenses',
+        component: ExpenseComponent
       },
       {
-        path :'master-data',
-        component :MasterDataComponent
+        path: 'master-data',
+        component: MasterDataComponent
       },
       {
-        path :'department',
-        component :DepartmentComponent
+        path: 'department',
+        component: DepartmentComponent
       },
       {
-        path :'designation',
-        component :DesignationComponent
+        path: 'designation',
+        component: DesignationComponent
       },
       {
-        path :'company',
-        component :CompanyComponent
+        path: 'company',
+        component: CompanyComponent
       },
       {
-        path :'release-document',
-        component :ReleaseDocumentComponent
+        path: 'release-document',
+        component: ReleaseDocumentComponent
       },
       {
-        path :'attendance',
-        component :AttendanceComponent
+        path: 'attendance',
+        component: AttendanceComponent
       },
 
-     {
-        path :'machines',
-        component : MachineComponent
+      {
+        path: 'machines',
+        component: MachineComponent
       },
       {
-        path :'attendance-report',
-        component : AttendanceReportComponent
+        path: 'attendance-report',
+        component: AttendanceReportComponent
       },
       {
-        path :'leave-request',
-        component : LeaveRequestComponent
+        path: 'leave-request',
+        component: LeaveRequestComponent
       },
       {
-        path :'leave-approval',
-        component : LeaveapprovalComponent
+        path: 'leave-approval',
+        component: LeaveapprovalComponent
       },
       {
-        path :'salary-generation',
-        component : SalarygenerationComponent
+        path: 'salary-generation',
+        component: SalarygenerationComponent
       },
       {
-        path :'holiday-schedule',
-        component : HolidayScheduleComponent
+        path: 'holiday-schedule',
+        component: HolidayScheduleComponent
+      },
+      {
+        path: 'promotion',
+        component: PromotionComponent
+      },
+      {
+        path: 'loans',
+        component: LoanComponent
+      },
+      {
+        path: 'attachments',
+        component: AttachmentsComponent
+      },
+      {
+        path: 'loanreport',
+        component: LoanreportComponent
+      },
+      {
+        path: 'incentive',
+        component: IncentiveComponent
       }
-      
-      
-
-
     ]
   }
 ];

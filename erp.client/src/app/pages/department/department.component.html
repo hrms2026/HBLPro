@@ -4,14 +4,53 @@
         <button class="btn btn-warning" (click)="createDepartment()"><i class="fa fa-plus"></i> Create</button>
         <div class="clearfix"></div>
       </div>
-     <div class="x_content" style="display: block;">
-        <div >
-          &nbsp;No Departments found.
-          <br/>
-        </div>
-     </div>
+        
+        <div class="x_content" style="display: block;">
 
+      <ag-grid-angular #departmentGrid class="ag-theme-quartz ag-theme-acmecorp"
+      style="height: 80vh; width: 100%;" [rowData]="departments" [columnDefs]="colDefs"
+      [pagination]="pagination" [defaultColDef]="defaultColDef" [components]="frameworkComponents"
+      [paginationPageSize]="paginationPageSize" [paginationPageSizeSelector]="paginationPageSizeSelector"
+      (gridReady)="onGridReady($event)"></ag-grid-angular>
+    
+    
+    </div>
     </div>
 </div>
 
-      
+  <div class="modal fade" id="DepartmentModal" tabindex="-1" role="dialog" 
+
+  aria-labelledby="Departmentmodal" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="DepartmentModal">{{ department.d_id ? 'Update Department' : 'Create Department' }}</h5>
+      </div>
+      <div class="modal-body">
+        <form #userForm="ngForm">
+          <div class="form-group">
+            <label for="d_name">Name</label>
+            <input type="text" id="d_name" class="form-control" [(ngModel)]="department.d_name" name="d_name"
+              required>
+            <div class="invalid-feedback" *ngIf="userForm.submitted && !department.d_name">
+              Name is required
+            </div>
+          </div>
+        </form>
+         <div class="form-group">
+            <label for="d_sname">Short Name</label>
+            <input type="text" id="d_sname" class="form-control" [(ngModel)]="department.d_sname" name="d_sname">
+          </div>
+ <div class="form-group">
+  <label for="d_code">Department Code</label>
+  <input type="text" id="d_code" class="form-control" [(ngModel)]="department.d_code" name="d_code" readonly>
+</div>
+
+
+      <div class="modal-footer d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" (click)="createOrUpdateDepartment()">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>   

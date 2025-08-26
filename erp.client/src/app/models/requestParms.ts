@@ -6,6 +6,7 @@ export class RequestParms {
   details :string;
   daterange :string;
   flag:string;
+  month:string;
   constructor() {
     this.id = 0;
     this.name='',
@@ -14,6 +15,7 @@ export class RequestParms {
     this.details='';
     this.daterange='';
     this.flag='';
+    this.month='';
   }
 
 }

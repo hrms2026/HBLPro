@@ -54,6 +54,7 @@ namespace Erp.Server.Controllers
        // [Authorize]
         public DbResult createOrUpdateHolidaySchedule([FromBody] HolidaySchedule holidaySchedule)
         {
+
             Trace.WriteLine("Datetime  " +holidaySchedule.hs_leave_from+"  "+holidaySchedule.hs_leave_to);
             DbResult dbResult = new DbResult();
             dbResult = iHolidaySchedule.createOrUpdateHolidaySchedule(holidaySchedule);

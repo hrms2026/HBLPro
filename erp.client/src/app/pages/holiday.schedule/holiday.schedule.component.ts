@@ -44,12 +44,12 @@ export class HolidayScheduleComponent {
   }
 
   ngOnInit(): void {
+    this.getHolidaySchedules();
     this.getCompanies();
     this.getHolidaySchedules();
 
     this.subscription.add(
       this.iHolidayScheduleService.refreshHolidaySchedules$.subscribe(() => {
-        this.getCompanies();
         this.getHolidaySchedules();
       })
     );
@@ -62,12 +62,12 @@ export class HolidayScheduleComponent {
     { 
       headerName: "Leave from", field: "hs_leave_from",
       valueFormatter: (params) => {
-        return format(new Date(params.value), 'yyyy-MM-dd hh:mm:ss a');
+        return format(new Date(params.value), 'yyyy-MM-dd');
      },
     },
 
     { headerName: "Leave to", field: "hs_leave_to", valueFormatter: (params) => {
-      return format(new Date(params.value), 'yyyy-MM-dd hh:mm:ss a');
+      return format(new Date(params.value), 'yyyy-MM-dd');
      },
     },
     {
@@ -100,10 +100,7 @@ export class HolidayScheduleComponent {
   frameworkComponents = {
     actionRenderer: ActionRendererComponent
   };
-  // Date formatter for AG-Grid
-  private dateFormatter(params: any): string {
-    return params.value ? formatDate(params.value, 'MM/dd/yyyy', 'en-US') : '';
-  }
+
 
   onGridReady(event: GridReadyEvent) {
     this.gridService.resizeGridColumns(this.holidayGrid.api);

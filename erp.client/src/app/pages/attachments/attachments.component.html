@@ -1,0 +1,14 @@
+<div class="right_col" role="main" style="min-height: 100vh;">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a>Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Attachment files</li>
+    </ol>
+
+  </nav>
+  <div class="file-upload-container">
+    <h2>Upload PDF</h2>
+    <input type="file" accept="application/pdf" (change)="onFileSelected($event)" />
+
+    <button (click)="onSubmit()">Submit</button>
+  </div>

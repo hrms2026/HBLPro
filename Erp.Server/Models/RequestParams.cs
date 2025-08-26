@@ -11,6 +11,7 @@
         public string daterange { get; set; } = string.Empty;
         public string flag { get; set; } = string.Empty;
         public int currentUserId { get; set; } = 0;
+        public string month { get; set; } = string.Empty;
 
     }
 }

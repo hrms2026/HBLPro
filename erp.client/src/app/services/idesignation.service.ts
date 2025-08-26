@@ -32,9 +32,11 @@ export class IDesignationService {
     designation.ds_cre_date = new Date().toISOString();
     return this.http.post<DbResult>(this.apiUrl + "/createOrUpdateDesignation", designation); 
   }
+  
   get refreshDesignations$() {
     return this.refreshDepartmentsSubject.asObservable();
   }
+  
   refreshDesignations(): void {
     this.refreshDepartmentsSubject.next();
   }

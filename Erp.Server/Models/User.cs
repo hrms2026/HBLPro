@@ -163,7 +163,6 @@ namespace Erp.Server.Models
         [DataType(DataType.Date)]
         public DateTime u_passport_expiry_date { get; set; } = DateTime.Now;
 
-
         [Display(Name = "personal id")]
         public string? u_personal_id { get; set; } = string.Empty;
 
@@ -181,7 +180,6 @@ namespace Erp.Server.Models
 
         [Display(Name = "exchange")]
         public string? u_uae_exchange_branch_name { get; set; } = string.Empty;
-
 
         [Display(Name = "basic salary")]
         public int? u_basic_salary { get; set; } 

@@ -16,11 +16,11 @@ namespace Erp.Server.Models
         
         [Display(Name = "from date")]
         [DataType(DataType.Date)]
-        public DateTime? hs_leave_from { get; set; } = DateTime.Now;
+        public DateTime hs_leave_from { get; set; } = DateTime.Now;
 
         [Display(Name = "to date")]
         [DataType(DataType.Date)]
-        public DateTime? hs_leave_to { get; set; } = DateTime.Now;
+        public DateTime hs_leave_to { get; set; } = DateTime.Now;
 
         [Display(Name = "Created By")]
         public int? hs_cre_by { get; set; } = 0;

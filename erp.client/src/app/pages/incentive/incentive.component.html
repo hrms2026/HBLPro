@@ -1,0 +1,96 @@
+<div class="right_col" style="min-height: 99vh;">
+  <div class="x_panel">
+    <div class="x_title">
+      <div class="row">
+        <div class="col-md-3"><button class="btn btn-warning" (click)="CreateIncentive()"><i class="fa fa-plus"></i> Create</button></div>
+         <div class="col-md-3">  <input type='month' class='form-control' [(ngModel)]="this.monthFilter" (change)="onMonthChange()" /></div>
+      </div>
+      <div class="x_content" style="display: block;">
+        <div class="row">
+          <div class="col-md-12">
+
+            <ag-grid-angular #incentiveGrid class="ag-theme-quartz ag-theme-acmecorp" style="height: 80vh; width: 100%;"
+              [rowData]="incentives" [columnDefs]="colDefs" [pagination]="pagination" [defaultColDef]="defaultColDef"
+              [components]="frameworkComponents" [paginationPageSize]="paginationPageSize" [domLayout]="domLayout"
+              [paginationPageSizeSelector]="paginationPageSizeSelector"
+              (gridReady)="onGridReady($event)"></ag-grid-angular>
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="modal fade" id="incentiveModal" role="dialog" aria-labelledby="incentiveModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="incentiveModal"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="false">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="container-fluid">
+
+              <div class="x_panel">
+                <div class="x_title">
+                  <h4 style="font-weight:bold; color:#3f345e;">Incentive</h4>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content" style="display: block;">
+                  <div class="row">
+
+                    <!-- Month Selector -->
+                    <div class="col-md-3 form-group">
+                      <label for="month" style="color: #3f345e; font-weight: bold;">Select Month</label>
+                      <input type="month" id="i_month" class="form-control" [(ngModel)]="incentive.i_month"
+                        name="i_month">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label for="i_user">Employee Choose</label>
+                      <select appSelect2 id="i_user" class="form-control" [(ngModel)]="incentive.i_user"
+                        (selectionChanged)="OnUserChange($event);">
+                        <option>Select User</option>
+                        <option *ngFor="let u of users" [value]="u.u_id">{{ u.u_name }}</option>
+                      </select>
+                    </div>
+
+
+                    <!-- Amount -->
+                    <div class="col-md-3 form-group">
+                      <label for="i_amount" style="color: #3f345e; font-weight: bold;">Amount</label>
+                      <input type="number" id="i_amount" class="form-control" [(ngModel)]="incentive.i_amount"
+                        name="amount" placeholder="Enter Amount">
+                    </div>
+                    <!-- Payment Type -->
+                    <div class="col-md-3 form-group">
+                      <label for="i_payment_type" style="color: #3f345e; font-weight: bold;">Payment Type</label>
+                      <select appSelect2 id="i_payment_type" class="form-control" [(ngModel)]="incentive.i_payment_type"
+                        name="i_payment_type" required (selectionChanged)="OnPaymentTypeChange($event);">
+                        <option *ngFor="let p of Paymenttype" [value]="p.md_id">{{ p.md_name }}</option>
+                      </select>
+                    </div>
+
+
+                    <!-- Reason -->
+                    <div class="col-md-6 form-group">
+                      <label for="i_reason" style="color: #3f345e; font-weight: bold;">Reason</label>
+                      <input type="text" id="i_reason" class="form-control" [(ngModel)]="incentive.i_reason"
+                        name="reason" placeholder="Enter reason">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-md-6 form-group d-flex align-items-end">
+                      <button class="btn btn-primary" (click)="createOrUpdateIncentive()">
+                        Add
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>

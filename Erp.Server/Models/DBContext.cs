@@ -20,6 +20,7 @@ namespace Erp.Server.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<MasterData> MasterDatas { get; set; }
         public DbSet<MasterType> MasterTypes { get; set; }
+        public DbSet<Department> Department { get; set; }
         public DbSet<Designation> Designation { get; set; }
         public DbSet<Company> companies { get; set; }
         public DbSet<ReleaseDocument> releasedocuments { get; set; }
@@ -28,6 +29,11 @@ namespace Erp.Server.Models
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<LeaveApprovalHistory> LeaveApprovalHistory { get; set; }
         public DbSet<HolidaySchedule> HolidaySchedules { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<Attachments> Attachments { get; set; }
+        public DbSet<LoanPayment> LoanPayments { get; set; }
+        public DbSet<Incentive> Incentives { get; set; }
 
 
     }
