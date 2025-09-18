@@ -93,7 +93,7 @@ export class IncentiveComponent {
   colDefs: ColDef[] = [
     { headerName: "id", field: "i_id" },
     { headerName: "Name", field: "i_user_name" },
-    { headerName: "month", field: "i_month_name" },
+    { headerName: "month", field: "i_month" },
     { headerName: "Amount", field: "i_amount" },
     { headerName: "Payment Type", field: "i_payment_type_name" },
     { headerName: "Reason", field: "i_reason" },

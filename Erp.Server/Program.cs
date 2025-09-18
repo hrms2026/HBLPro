@@ -114,6 +114,8 @@ builder.Services.AddTransient<IAttachments, AttachmentsRepository>();
 builder.Services.AddTransient<ILoanPayment, LoanPaymentRepository>();
 builder.Services.AddTransient<IReportLoan, ReportLoanRepository>();
 builder.Services.AddTransient<IIncentive,IncentiveRepository>();
+builder.Services.AddTransient<IReportIncentive, ReportIncentiveRepository>();
+
 
 
 

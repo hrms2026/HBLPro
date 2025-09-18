@@ -54,6 +54,8 @@ import { AttachmentsComponent } from './pages/attachments/attachments.component'
 import { LoanreportComponent } from './pages/loanreport/loanreport.component';
 import { IncentiveComponent } from './pages/incentive/incentive.component';
 import { AttendanceReportComponent } from './pages/attandance.report/attendance.report.component';
+import { IncentivereportComponent } from './pages/incentivereport/incentivereport.component';
+import { CurrencyComponent } from './pages/currency/currency.component';
 
 // Define a function to get the token
 export function tokenGetter() {
@@ -107,7 +109,10 @@ const jwtConfig: JwtModuleOptions = {
     LoanComponent,
     AttachmentsComponent,
     LoanreportComponent,
-    IncentiveComponent
+    IncentiveComponent,
+    IncentivereportComponent,
+    IncentivereportComponent,
+    CurrencyComponent
   
     
   ],

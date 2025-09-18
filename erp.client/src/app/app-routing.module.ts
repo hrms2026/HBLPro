@@ -31,6 +31,8 @@ import { AttachmentsComponent } from './pages/attachments/attachments.component'
 import { LoanreportComponent } from './pages/loanreport/loanreport.component';
 import { IncentiveComponent } from './pages/incentive/incentive.component';
 import { AttendanceReportComponent } from './pages/attandance.report/attendance.report.component';
+import { IncentivereportComponent } from './pages/incentivereport/incentivereport.component';
+import { CurrencyComponent } from './pages/currency/currency.component';
 
 
 const routes: Routes = [
@@ -158,6 +160,14 @@ const routes: Routes = [
       {
         path: 'incentive',
         component: IncentiveComponent
+      },
+      {
+        path: 'incentive-report',
+        component: IncentivereportComponent
+      },
+      {
+        path: 'currency',
+        component: CurrencyComponent
       }
     ]
   }
